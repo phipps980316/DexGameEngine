@@ -1,9 +1,6 @@
 package RenderTest;
 
-import RenderEngine.DisplayManager;
-import RenderEngine.ModelLoader;
-import RenderEngine.ModelRenderer;
-import RenderEngine.RawModel;
+import RenderEngine.*;
 import org.lwjgl.opengl.Display;
 
 public class MainGameLoop {
@@ -11,6 +8,7 @@ public class MainGameLoop {
         DisplayManager.createDisplay();
         ModelLoader modelLoader = new ModelLoader();
         ModelRenderer modelRenderer = new ModelRenderer();
+        StaticShader shader = new StaticShader();
 
         float[] vertices = {
                 -0.5f, 0.5f, 0f,
@@ -28,10 +26,13 @@ public class MainGameLoop {
 
         while(!Display.isCloseRequested()){
             modelRenderer.prepare();
+            shader.start();
             modelRenderer.render(model);
+            shader.stop();
             DisplayManager.updateDisplay();
         }
 
+        shader.cleanUp();
         modelLoader.cleanUp();
         DisplayManager.closeDisplay();
     }

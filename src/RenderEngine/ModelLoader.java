@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ModelLoader {
 
-    private List<Integer> vaos = new ArrayList<Integer>();
-    private List<Integer> vbos = new ArrayList<Integer>();
+    private final List<Integer> vaos = new ArrayList<Integer>();
+    private final List<Integer> vbos = new ArrayList<Integer>();
 
     public RawModel loadToVAO(float[] positions, int[] indices){
         int vaoID = createVAO();
