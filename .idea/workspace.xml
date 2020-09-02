@@ -70,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599080945126</updated>
-      <workItem from="1599080948146" duration="1402000" />
+      <workItem from="1599080948146" duration="3508000" />
     </task>
     <servers />
   </component>
@@ -86,6 +86,10 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1021" y="327" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1050@0.0.2560.1050" timestamp="1599081237977" />
+    <state x="1725" y="229" key="#com.intellij.ide.util.MemberChooser" timestamp="1599082958945">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="1725" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050@0.0.2560.1050" timestamp="1599082958945" />
     <state x="1110" y="235" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1599081232794">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
@@ -94,6 +98,22 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1298" y="428" key="FileChooserDialogImpl/0.0.2560.1050@0.0.2560.1050" timestamp="1599081398909" />
+    <state width="1234" height="285" key="GridCell.Tab.0.bottom" timestamp="1599082406182">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1234" height="285" key="GridCell.Tab.0.bottom/0.0.2560.1050@0.0.2560.1050" timestamp="1599082406182" />
+    <state width="1234" height="285" key="GridCell.Tab.0.center" timestamp="1599082406182">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1234" height="285" key="GridCell.Tab.0.center/0.0.2560.1050@0.0.2560.1050" timestamp="1599082406182" />
+    <state width="1234" height="285" key="GridCell.Tab.0.left" timestamp="1599082406182">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1234" height="285" key="GridCell.Tab.0.left/0.0.2560.1050@0.0.2560.1050" timestamp="1599082406182" />
+    <state width="1234" height="285" key="GridCell.Tab.0.right" timestamp="1599082406182">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1234" height="285" key="GridCell.Tab.0.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599082406182" />
     <state x="760" y="99" key="SettingsEditor" timestamp="1599081234067">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
