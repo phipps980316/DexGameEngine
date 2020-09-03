@@ -1,4 +1,4 @@
-package RenderEngine;
+package Shaders;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;

@@ -1,4 +1,4 @@
-package RenderEngine;
+package Shaders;
 
 public class StaticShader extends Shader {
 
@@ -12,5 +12,6 @@ public class StaticShader extends Shader {
     @Override
     protected void bindAttributes() {
         super.bindAttributes(0, "position");
+        super.bindAttributes(1, "textureCoords");
     }
 }

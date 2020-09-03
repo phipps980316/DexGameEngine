@@ -1,6 +1,10 @@
-package RenderTest;
+package EngineTest;
 
+import Models.RawModel;
+import Models.TexturedModel;
 import RenderEngine.*;
+import Shaders.StaticShader;
+import Textures.ModelTexture;
 import org.lwjgl.opengl.Display;
 
 public class MainGameLoop {
@@ -22,12 +26,21 @@ public class MainGameLoop {
                 3,1,2
         };
 
-        RawModel model = modelLoader.loadToVAO(vertices,indices);
+        float[] textureCoords = {
+                0,0,
+                0,1,
+                1,1,
+                1,0
+        };
+
+        RawModel model = modelLoader.loadToVAO(vertices,textureCoords,indices);
+        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("tex1"));
+        TexturedModel texturedModel = new TexturedModel(model, texture);
 
         while(!Display.isCloseRequested()){
             modelRenderer.prepare();
             shader.start();
-            modelRenderer.render(model);
+            modelRenderer.render(texturedModel);
             shader.stop();
             DisplayManager.updateDisplay();
         }

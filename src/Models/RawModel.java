@@ -1,4 +1,4 @@
-package RenderEngine;
+package Models;
 
 public class RawModel {
     private final int vaoID;
