@@ -16,7 +16,7 @@ public abstract class Shader {
     private final int vertexShaderID;
     private final int fragmentShaderID;
 
-    private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+    private static final FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 
     public Shader(String vertexFile, String fragmentFile){
         vertexShaderID = loadShader(vertexFile, GL20.GL_VERTEX_SHADER);

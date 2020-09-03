@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="74e195ba-2662-4ddd-afa2-750013cf52a9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,12 +97,26 @@
       <updated>1599080945126</updated>
       <workItem from="1599080948146" duration="7689000" />
       <workItem from="1599088856215" duration="11000" />
-      <workItem from="1599145691924" duration="8224000" />
+      <workItem from="1599145691924" duration="9047000" />
+      <workItem from="1599155060384" duration="434000" />
+      <workItem from="1599156991396" duration="2817000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="760" y="99" key="#Project_Structure" timestamp="1599081405429">
@@ -103,30 +135,30 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1110" y="235" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.2560.1050@0.0.2560.1050" timestamp="1599081232794" />
-    <state x="1038" y="395" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1599088640654">
+    <state x="1038" y="395" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1599154756026">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state x="1038" y="395" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.2560.1050@0.0.2560.1050" timestamp="1599088640654" />
+    <state x="1038" y="395" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.2560.1050@0.0.2560.1050" timestamp="1599154756026" />
     <state x="1298" y="428" key="FileChooserDialogImpl" timestamp="1599081398909">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1298" y="428" key="FileChooserDialogImpl/0.0.2560.1050@0.0.2560.1050" timestamp="1599081398909" />
-    <state width="1234" height="284" key="GridCell.Tab.0.bottom" timestamp="1599152872204">
+    <state width="2517" height="286" key="GridCell.Tab.0.bottom" timestamp="1599155495804">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="284" key="GridCell.Tab.0.bottom/0.0.2560.1050@0.0.2560.1050" timestamp="1599152872204" />
-    <state width="1234" height="284" key="GridCell.Tab.0.center" timestamp="1599152872204">
+    <state width="2517" height="286" key="GridCell.Tab.0.bottom/0.0.2560.1050@0.0.2560.1050" timestamp="1599155495804" />
+    <state width="2517" height="286" key="GridCell.Tab.0.center" timestamp="1599155495804">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="284" key="GridCell.Tab.0.center/0.0.2560.1050@0.0.2560.1050" timestamp="1599152872204" />
-    <state width="1234" height="284" key="GridCell.Tab.0.left" timestamp="1599152872204">
+    <state width="2517" height="286" key="GridCell.Tab.0.center/0.0.2560.1050@0.0.2560.1050" timestamp="1599155495804" />
+    <state width="2517" height="286" key="GridCell.Tab.0.left" timestamp="1599155495804">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="284" key="GridCell.Tab.0.left/0.0.2560.1050@0.0.2560.1050" timestamp="1599152872204" />
-    <state width="1234" height="284" key="GridCell.Tab.0.right" timestamp="1599152872204">
+    <state width="2517" height="286" key="GridCell.Tab.0.left/0.0.2560.1050@0.0.2560.1050" timestamp="1599155495804" />
+    <state width="2517" height="286" key="GridCell.Tab.0.right" timestamp="1599155495804">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="284" key="GridCell.Tab.0.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599152872204" />
+    <state width="2517" height="286" key="GridCell.Tab.0.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599155495804" />
     <state x="760" y="99" key="SettingsEditor" timestamp="1599081234067">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
