@@ -1,6 +1,7 @@
 package Shaders;
 
 import Entities.Camera;
+import Entities.Light;
 import Toolbox.Maths;
 import org.lwjgl.util.vector.Matrix4f;
 
@@ -12,6 +13,10 @@ public class StaticShader extends Shader {
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
     private int viewMatrixLocation;
+    private int lightPositionLocation;
+    private int lightColourLocation;
+    private int shineDamperLocation;
+    private int reflectivityLocation;
 
     public StaticShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -21,6 +26,7 @@ public class StaticShader extends Shader {
     protected void bindAttributes() {
         super.bindAttributes(0, "position");
         super.bindAttributes(1, "textureCoords");
+        super.bindAttributes(2, "normal");
     }
 
     @Override
@@ -28,6 +34,10 @@ public class StaticShader extends Shader {
         transformationMatrixLocation = super.getUniformVariableLocation("transformationMatrix");
         projectionMatrixLocation = super.getUniformVariableLocation("projectionMatrix");
         viewMatrixLocation = super.getUniformVariableLocation("viewMatrix");
+        lightPositionLocation = super.getUniformVariableLocation("lightPosition");
+        lightColourLocation = super.getUniformVariableLocation("lightColour");
+        shineDamperLocation = super.getUniformVariableLocation("shineDamper");
+        reflectivityLocation = super.getUniformVariableLocation("reflectivity");
     }
 
     public void loadTransformationMatrix(Matrix4f matrix) {
@@ -43,4 +53,13 @@ public class StaticShader extends Shader {
         super.loadMatrix(viewMatrixLocation, viewMatrix);
     }
 
+    public void loadLight(Light light){
+        super.loadVector(lightPositionLocation, light.getPosition());
+        super.loadVector(lightColourLocation, light.getColour());
+    }
+
+    public void loadShineVariables(float damper, float reflectivity){
+        super.loadFloat(shineDamperLocation, damper);
+        super.loadFloat(reflectivityLocation, reflectivity);
+    }
 }

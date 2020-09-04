@@ -2,6 +2,7 @@ package EngineTest;
 
 import Entities.Camera;
 import Entities.Entity;
+import Entities.Light;
 import Models.RawModel;
 import Models.TexturedModel;
 import RenderEngine.*;
@@ -18,17 +19,21 @@ public class MainGameLoop {
         ModelRenderer modelRenderer = new ModelRenderer(shader);
 
 
-        RawModel model = OBJLoader.loadObjModel("Cube", modelLoader);
-        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("CubeTex"));
+        RawModel model = OBJLoader.loadObjModel("stall", modelLoader);
+        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("stallTexture"));
+        texture.setShineDamper(10);
+        texture.setReflectivity(1);
         TexturedModel texturedModel = new TexturedModel(model, texture);
-        Entity entity = new Entity(texturedModel, new Vector3f(0,0,0), new Vector3f(0,0,0), 1);
+        Entity entity = new Entity(texturedModel, new Vector3f(0,0,-50), new Vector3f(0,0,0), 1);
+        Light light = new Light(new Vector3f(0,0,0), new Vector3f(1,1,1));
         Camera camera = new Camera();
 
         while(!Display.isCloseRequested()){
-            entity.changeRotation(1,1,0);
+            entity.changeRotation(0,1,0);
             camera.move();
             modelRenderer.prepare();
             shader.start();
+            shader.loadLight(light);
             shader.loadViewMatrix(camera);
             modelRenderer.render(entity,shader);
             shader.stop();
