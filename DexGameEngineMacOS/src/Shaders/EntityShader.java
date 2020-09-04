@@ -17,6 +17,7 @@ public class EntityShader extends Shader {
     private int lightColourLocation;
     private int shineDamperLocation;
     private int reflectivityLocation;
+    private int fakeLightingLocation;
 
     public EntityShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -38,6 +39,7 @@ public class EntityShader extends Shader {
         lightColourLocation = super.getUniformVariableLocation("lightColour");
         shineDamperLocation = super.getUniformVariableLocation("shineDamper");
         reflectivityLocation = super.getUniformVariableLocation("reflectivity");
+        fakeLightingLocation = super.getUniformVariableLocation("useFakeLighting");
     }
 
     public void loadTransformationMatrix(Matrix4f matrix) {
@@ -61,5 +63,9 @@ public class EntityShader extends Shader {
     public void loadShineVariables(float damper, float reflectivity){
         super.loadFloat(shineDamperLocation, damper);
         super.loadFloat(reflectivityLocation, reflectivity);
+    }
+
+    public void loadFakeLightingVariable(boolean useFakeLighting){
+        super.loadBoolean(fakeLightingLocation, useFakeLighting);
     }
 }

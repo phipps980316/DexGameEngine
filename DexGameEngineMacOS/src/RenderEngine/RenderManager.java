@@ -33,8 +33,7 @@ public class RenderManager {
     private List<Terrain> terrains = new ArrayList<>();
 
     public RenderManager(){
-        GL11.glEnable(GL11.GL_CULL_FACE);
-        GL11.glCullFace(GL11.GL_BACK);
+        enableCulling();
         createProjectionMatrix();
         entityRenderer = new EntityRenderer(entityShader, projectionMatrix);
         terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
@@ -78,6 +77,15 @@ public class RenderManager {
         entities.clear();
     }
 
+    public static void enableCulling(){
+        GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glCullFace(GL11.GL_BACK);
+    }
+
+    public static void disableCulling(){
+        GL11.glDisable(GL11.GL_CULL_FACE);
+    }
+
     public void processTerrain(Terrain terrain){
         terrains.add(terrain);
     }
@@ -89,7 +97,7 @@ public class RenderManager {
             batch.add(entity);
         }
         else {
-            List<Entity> newBatch = new ArrayList<Entity>();
+            List<Entity> newBatch = new ArrayList<>();
             newBatch.add(entity);
             entities.put(entityModel, newBatch);
         }
