@@ -15,12 +15,10 @@ public class MainGameLoop {
     public static void main(String[] args) {
         DisplayManager.createDisplay();
         ModelLoader modelLoader = new ModelLoader();
-        StaticShader shader = new StaticShader();
-        ModelRenderer modelRenderer = new ModelRenderer(shader);
 
 
-        RawModel model = OBJLoader.loadObjModel("stall", modelLoader);
-        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("stallTexture"));
+        RawModel model = OBJLoader.loadObjModel("dragon", modelLoader);
+        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("cubeTex"));
         texture.setShineDamper(10);
         texture.setReflectivity(1);
         TexturedModel texturedModel = new TexturedModel(model, texture);
@@ -28,19 +26,16 @@ public class MainGameLoop {
         Light light = new Light(new Vector3f(0,0,0), new Vector3f(1,1,1));
         Camera camera = new Camera();
 
+        RenderManager renderManager = new RenderManager();
         while(!Display.isCloseRequested()){
             entity.changeRotation(0,1,0);
             camera.move();
-            modelRenderer.prepare();
-            shader.start();
-            shader.loadLight(light);
-            shader.loadViewMatrix(camera);
-            modelRenderer.render(entity,shader);
-            shader.stop();
+            renderManager.processEntity(entity);
+            renderManager.render(light, camera);
             DisplayManager.updateDisplay();
         }
 
-        shader.cleanUp();
+        renderManager.cleanUp();
         modelLoader.cleanUp();
         DisplayManager.closeDisplay();
     }
