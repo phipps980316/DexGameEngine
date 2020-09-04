@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MacOS.iml" filepath="$PROJECT_DIR$/MacOS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DexGameEngineMacOS.iml" filepath="$PROJECT_DIR$/DexGameEngineMacOS.iml" />
     </modules>
   </component>
 </project>
