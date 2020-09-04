@@ -10,6 +10,7 @@ import Terrains.Terrain;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,8 @@ public class RenderManager {
     private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000f;
+
+    private static final Vector3f skyColour = new Vector3f(0.4f,0.0f,0.0f);
 
     private Matrix4f projectionMatrix;
 
@@ -57,18 +60,20 @@ public class RenderManager {
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(0, 0.8f, 1, 1);
+        GL11.glClearColor(skyColour.x, skyColour.y, skyColour.z, 1);
     }
 
     public void render(Light light, Camera camera){
         prepare();
         entityShader.start();
+        entityShader.loadSkyColour(skyColour);
         entityShader.loadLight(light);
         entityShader.loadViewMatrix(camera);
         entityRenderer.render(entities);
         entityShader.stop();
 
         terrainShader.start();
+        terrainShader.loadSkyColour(skyColour);
         terrainShader.loadLight(light);
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);

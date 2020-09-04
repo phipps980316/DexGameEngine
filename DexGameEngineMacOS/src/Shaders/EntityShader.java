@@ -4,6 +4,7 @@ import Entities.Camera;
 import Entities.Light;
 import Toolbox.Maths;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 public class EntityShader extends Shader {
 
@@ -18,6 +19,7 @@ public class EntityShader extends Shader {
     private int shineDamperLocation;
     private int reflectivityLocation;
     private int fakeLightingLocation;
+    private int skyColourLocation;
 
     public EntityShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -40,6 +42,8 @@ public class EntityShader extends Shader {
         shineDamperLocation = super.getUniformVariableLocation("shineDamper");
         reflectivityLocation = super.getUniformVariableLocation("reflectivity");
         fakeLightingLocation = super.getUniformVariableLocation("useFakeLighting");
+        skyColourLocation = super.getUniformVariableLocation("skyColour");
+
     }
 
     public void loadTransformationMatrix(Matrix4f matrix) {
@@ -67,5 +71,9 @@ public class EntityShader extends Shader {
 
     public void loadFakeLightingVariable(boolean useFakeLighting){
         super.loadBoolean(fakeLightingLocation, useFakeLighting);
+    }
+
+    public void loadSkyColour(Vector3f rgb){
+        super.loadVector(skyColourLocation, rgb);
     }
 }
