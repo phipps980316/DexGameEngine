@@ -5,10 +5,10 @@ import Entities.Light;
 import Toolbox.Maths;
 import org.lwjgl.util.vector.Matrix4f;
 
-public class StaticShader extends Shader {
+public class EntityShader extends Shader {
 
-    private static final String VERTEX_FILE = "src/shaders/vertexShader.txt";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.txt";
+    private static final String VERTEX_FILE = "src/shaders/entityVertexShader.txt";
+    private static final String FRAGMENT_FILE = "src/shaders/entityFragmentShader.txt";
 
     private int transformationMatrixLocation;
     private int projectionMatrixLocation;
@@ -18,7 +18,7 @@ public class StaticShader extends Shader {
     private int shineDamperLocation;
     private int reflectivityLocation;
 
-    public StaticShader() {
+    public EntityShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
 
