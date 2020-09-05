@@ -1,8 +1,8 @@
 package Terrains;
 
-import Models.RawModel;
+import Models.Model;
 import RenderEngine.ModelLoader;
-import Textures.ModelTexture;
+import Models.ModelTexture;
 
 public class Terrain {
     private static final float SIZE = 800;
@@ -10,17 +10,15 @@ public class Terrain {
 
     private float x;
     private float z;
-    private RawModel model;
-    private ModelTexture texture;
+    private Model model;
 
     public Terrain(int gridX, int gridZ, ModelLoader loader, ModelTexture texture){
-        this.texture = texture;
         this.x = gridX * SIZE;
         this.z = gridZ * SIZE;
-        this.model = generateTerrain(loader);
+        this.model = generateTerrain(loader, texture);
     }
 
-    private RawModel generateTerrain(ModelLoader loader){
+    private Model generateTerrain(ModelLoader loader, ModelTexture modelTexture){
         int count = VERTEX_COUNT * VERTEX_COUNT;
         float[] vertices = new float[count * 3];
         float[] normals = new float[count * 3];
@@ -55,7 +53,7 @@ public class Terrain {
                 indices[pointer++] = bottomRight;
             }
         }
-        return loader.loadToVAO(vertices, textureCoords, normals, indices);
+        return loader.loadToVAO(vertices, textureCoords, normals, indices, modelTexture);
     }
 
     public float getX() {
@@ -74,19 +72,11 @@ public class Terrain {
         this.z = z;
     }
 
-    public RawModel getModel() {
+    public Model getModel() {
         return model;
     }
 
-    public void setModel(RawModel model) {
+    public void setModel(Model model) {
         this.model = model;
-    }
-
-    public ModelTexture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(ModelTexture texture) {
-        this.texture = texture;
     }
 }

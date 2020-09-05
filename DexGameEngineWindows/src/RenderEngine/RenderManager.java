@@ -3,7 +3,7 @@ package RenderEngine;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
-import Models.TexturedModel;
+import Models.Model;
 import Shaders.EntityShader;
 import Shaders.TerrainShader;
 import Terrains.Terrain;
@@ -22,7 +22,7 @@ public class RenderManager {
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000f;
 
-    private static final Vector3f skyColour = new Vector3f(0.4f,0.0f,0.0f);
+    private static final Vector3f skyColour = new Vector3f(0.3f,0.3f,0.3f);
 
     private Matrix4f projectionMatrix;
 
@@ -32,7 +32,7 @@ public class RenderManager {
     private TerrainShader terrainShader = new TerrainShader();
     private TerrainRenderer terrainRenderer;
 
-    private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
+    private Map<Model, List<Entity>> entities = new HashMap<>();
     private List<Terrain> terrains = new ArrayList<>();
 
     public RenderManager(){
@@ -96,7 +96,7 @@ public class RenderManager {
     }
 
     public void processEntity(Entity entity){
-        TexturedModel entityModel = entity.getModel();
+        Model entityModel = entity.getModel();
         List<Entity> batch = entities.get(entityModel);
         if(batch != null) {
             batch.add(entity);

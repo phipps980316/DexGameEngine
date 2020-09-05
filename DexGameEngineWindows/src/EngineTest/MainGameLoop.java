@@ -3,11 +3,12 @@ package EngineTest;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
-import Models.RawModel;
-import Models.TexturedModel;
+import IO.ModelFileLoader;
+import Models.Model;
+import Models.ModelData;
 import RenderEngine.*;
+import Models.ModelTexture;
 import Terrains.Terrain;
-import Textures.ModelTexture;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -17,34 +18,64 @@ import java.util.Random;
 
 public class MainGameLoop {
     public static void main(String[] args) {
+        landscapeDemo();
+    }
+
+    public static void cubeDemo(){
         DisplayManager.createDisplay();
         ModelLoader modelLoader = new ModelLoader();
 
+        ModelData modelData = ModelFileLoader.loadModel("cube");
+        ModelTexture modelTexture = new ModelTexture(modelLoader.loadTexture("cube"), 1, 0, false, false);
+        assert modelData != null;
+        Model cube = modelLoader.loadToVAO(modelData, modelTexture);
+        Entity entity = new Entity(cube, new Vector3f(0, 0, -25), new Vector3f(0,0,0), 1);
 
-        RawModel grassModel = OBJLoader.loadObjModel("grassModel", modelLoader);
-        ModelTexture grassTexture = new ModelTexture(modelLoader.loadTexture("grassTexture"));
-        grassTexture.setHasTransparency(true);
-        grassTexture.setUseFakeLighting(true);
-        TexturedModel grassTexturedModel = new TexturedModel(grassModel, grassTexture);
+        Light light = new Light(new Vector3f(20000,20000,2000), new Vector3f(1,1,1));
+        Camera camera = new Camera();
 
-        RawModel fernModel = OBJLoader.loadObjModel("fern", modelLoader);
-        ModelTexture fernTexture = new ModelTexture(modelLoader.loadTexture("fern"));
-        fernTexture.setHasTransparency(true);
-        TexturedModel fernTexturedModel = new TexturedModel(fernModel, fernTexture);
+        RenderManager renderManager = new RenderManager();
+        while(!Display.isCloseRequested()){
+            entity.changeRotation(1,1,0);
+            camera.move();
+            renderManager.processEntity(entity);
+            renderManager.render(light, camera);
+            DisplayManager.updateDisplay();
+        }
+
+        renderManager.cleanUp();
+        modelLoader.cleanUp();
+        DisplayManager.closeDisplay();
+    }
+
+    public static void landscapeDemo(){
+        DisplayManager.createDisplay();
+        ModelLoader modelLoader = new ModelLoader();
+
+        ModelData grassData = ModelFileLoader.loadModel("grassModel");
+        ModelTexture grassTexture = new ModelTexture(modelLoader.loadTexture("grassTexture"),1,0, true, true);
+        assert grassData != null;
+        Model grass = modelLoader.loadToVAO(grassData, grassTexture);
+
+        ModelData fernData = ModelFileLoader.loadModel("fern");
+        ModelTexture fernTexture = new ModelTexture(modelLoader.loadTexture("fern"),1,0, true, false);
+        assert fernData != null;
+        Model fern = modelLoader.loadToVAO(fernData, fernTexture);
 
         List<Entity> entities = new ArrayList<>();
         Random random = new Random();
         for(int i = 0; i < 200; i++){
-            entities.add(new Entity(grassTexturedModel, new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600), new Vector3f(0,0,0), 3));
-            entities.add(new Entity(fernTexturedModel, new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600), new Vector3f(0,0,0), 3));
+            entities.add(new Entity(grass, new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600), new Vector3f(0,0,0), 3));
+            entities.add(new Entity(fern, new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600), new Vector3f(0,0,0), 3));
         }
 
 
         Light light = new Light(new Vector3f(20000,20000,2000), new Vector3f(1,1,1));
         Camera camera = new Camera();
 
-        Terrain terrain = new Terrain(0,-1,modelLoader, new ModelTexture(modelLoader.loadTexture("grass")));
-        Terrain terrain2 = new Terrain(-1,-1,modelLoader, new ModelTexture(modelLoader.loadTexture("grass")));
+        ModelTexture terrainTexture = new ModelTexture(modelLoader.loadTexture("grass"), 1, 0, false, false);
+        Terrain terrain = new Terrain(0,-1,modelLoader, terrainTexture);
+        Terrain terrain2 = new Terrain(-1,-1,modelLoader, terrainTexture);
 
         RenderManager renderManager = new RenderManager();
         while(!Display.isCloseRequested()){
