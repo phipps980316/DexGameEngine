@@ -2,9 +2,8 @@ package RenderEngine;
 
 import Shaders.TerrainShader;
 import Terrains.Terrain;
-import Textures.ModelTexture;
 import Textures.TerrainTexturePack;
-import Toolbox.MatrixMaths;
+import Toolbox.Maths;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -67,7 +66,7 @@ public class TerrainRenderer {
     }
 
     private void loadTerrainMatrix(Terrain terrain){
-        Matrix4f transformationMatrix = MatrixMaths.createTransformationMatrix(new Vector3f(terrain.getX(), 0, terrain.getZ()), new Vector3f(0,0,0), 1);
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(new Vector3f(terrain.getX(), 0, terrain.getZ()), new Vector3f(0,0,0), 1);
         shader.loadTransformationMatrix(transformationMatrix);
     }
 }

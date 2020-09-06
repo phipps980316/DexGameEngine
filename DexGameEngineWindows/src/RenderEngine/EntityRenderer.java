@@ -4,7 +4,7 @@ import Entities.Entity;
 import Models.TexturedModel;
 import Shaders.EntityShader;
 import Textures.ModelTexture;
-import Toolbox.MatrixMaths;
+import Toolbox.Maths;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -43,6 +43,7 @@ public class EntityRenderer {
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
         ModelTexture texture = model.getTexture();
+        shader.loadNumberOfRows(texture.getNumberOfRows());
         if(texture.hasTransparency()){
             RenderManager.disableCulling();
         }
@@ -61,7 +62,8 @@ public class EntityRenderer {
     }
 
     private void prepareInstance(Entity entity){
-        Matrix4f transformationMatrix = MatrixMaths.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
+        shader.loadOffset(entity.getTextureXOffset(), entity.getTextureYOffset());
     }
 }

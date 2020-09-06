@@ -2,8 +2,9 @@ package Shaders;
 
 import Entities.Camera;
 import Entities.Light;
-import Toolbox.MatrixMaths;
+import Toolbox.Maths;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 public class EntityShader extends Shader {
@@ -20,6 +21,8 @@ public class EntityShader extends Shader {
     private int reflectivityLocation;
     private int fakeLightingLocation;
     private int skyColourLocation;
+    private int numberOfRowsLocation;
+    private int offsetLocation;
 
     public EntityShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -43,6 +46,8 @@ public class EntityShader extends Shader {
         reflectivityLocation = super.getUniformVariableLocation("reflectivity");
         fakeLightingLocation = super.getUniformVariableLocation("useFakeLighting");
         skyColourLocation = super.getUniformVariableLocation("skyColour");
+        numberOfRowsLocation = super.getUniformVariableLocation("numberOfRows");
+        offsetLocation = super.getUniformVariableLocation("offset");
 
     }
 
@@ -55,13 +60,13 @@ public class EntityShader extends Shader {
     }
 
     public void loadViewMatrix(Camera camera) {
-        Matrix4f viewMatrix = MatrixMaths.createViewMatrix(camera);
+        Matrix4f viewMatrix = Maths.createViewMatrix(camera);
         super.loadMatrix(viewMatrixLocation, viewMatrix);
     }
 
     public void loadLight(Light light){
-        super.loadVector(lightPositionLocation, light.getPosition());
-        super.loadVector(lightColourLocation, light.getColour());
+        super.load3DVector(lightPositionLocation, light.getPosition());
+        super.load3DVector(lightColourLocation, light.getColour());
     }
 
     public void loadShineVariables(float damper, float reflectivity){
@@ -74,6 +79,16 @@ public class EntityShader extends Shader {
     }
 
     public void loadSkyColour(Vector3f rgb){
-        super.loadVector(skyColourLocation, rgb);
+        super.load3DVector(skyColourLocation, rgb);
     }
+
+    public void loadNumberOfRows(int number){
+        super.loadFloat(numberOfRowsLocation, number);
+    }
+
+    public void loadOffset(float x, float y){
+        super.load2DVector(offsetLocation, new Vector2f(x, y));
+    }
+
+
 }

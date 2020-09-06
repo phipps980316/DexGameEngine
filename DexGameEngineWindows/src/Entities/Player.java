@@ -2,6 +2,7 @@ package Entities;
 
 import Models.TexturedModel;
 import RenderEngine.DisplayManager;
+import Terrains.Terrain;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -22,7 +23,7 @@ public class Player extends Entity{
         super(model, position, rotation, scale);
     }
 
-    public void move(){
+    public void move(Terrain terrain){
         checkKeyboardInputs();
         super.changeRotation(0, currentTurnSpeed * DisplayManager.getFrameTime(), 0);
 
@@ -32,10 +33,11 @@ public class Player extends Entity{
         super.changePosition(dx, 0 ,dz);
         upwardsSpeed += GRAVITY * DisplayManager.getFrameTime();
         super.changePosition(0, upwardsSpeed * DisplayManager.getFrameTime(), 0);
-        if(super.getPosition().y<TERRAIN_HEIGHT){
+        float terrainHeight = terrain.getTerrainHeightAtPlayer(super.getPosition().x, super.getPosition().z);
+        if(super.getPosition().y<terrainHeight){
             upwardsSpeed = 0;
             isInAir = false;
-            super.getPosition().y = TERRAIN_HEIGHT;
+            super.getPosition().y = terrainHeight;
         }
     }
 

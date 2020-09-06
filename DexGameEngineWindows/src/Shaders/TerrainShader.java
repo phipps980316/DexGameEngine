@@ -2,7 +2,7 @@ package Shaders;
 
 import Entities.Camera;
 import Entities.Light;
-import Toolbox.MatrixMaths;
+import Toolbox.Maths;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -69,13 +69,13 @@ public class TerrainShader extends Shader{
     }
 
     public void loadViewMatrix(Camera camera) {
-        Matrix4f viewMatrix = MatrixMaths.createViewMatrix(camera);
+        Matrix4f viewMatrix = Maths.createViewMatrix(camera);
         super.loadMatrix(viewMatrixLocation, viewMatrix);
     }
 
     public void loadLight(Light light){
-        super.loadVector(lightPositionLocation, light.getPosition());
-        super.loadVector(lightColourLocation, light.getColour());
+        super.load3DVector(lightPositionLocation, light.getPosition());
+        super.load3DVector(lightColourLocation, light.getColour());
     }
 
     public void loadShineVariables(float damper, float reflectivity){
@@ -84,6 +84,6 @@ public class TerrainShader extends Shader{
     }
 
     public void loadSkyColour(Vector3f rgb){
-        super.loadVector(skyColourLocation, rgb);
+        super.load3DVector(skyColourLocation, rgb);
     }
 }
