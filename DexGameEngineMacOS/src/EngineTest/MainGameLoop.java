@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class MainGameLoop {
     public static void main(String[] args) {
-        cubeDemo();
+        landscapeDemo();
     }
 
     public static void cubeDemo(){

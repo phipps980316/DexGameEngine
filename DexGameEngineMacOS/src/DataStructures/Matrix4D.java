@@ -1,5 +1,7 @@
 package DataStructures;
 
+import org.lwjgl.util.vector.Matrix4f;
+
 import java.nio.FloatBuffer;
 
 public class Matrix4D {
@@ -14,18 +16,18 @@ public class Matrix4D {
         this.values[0][1] = 0.0f;
         this.values[0][2] = 0.0f;
         this.values[0][3] = 0.0f;
-        this.values[1][0] = 1.0f;
-        this.values[1][1] = 0.0f;
+        this.values[1][0] = 0.0f;
+        this.values[1][1] = 1.0f;
         this.values[1][2] = 0.0f;
         this.values[1][3] = 0.0f;
-        this.values[2][0] = 1.0f;
+        this.values[2][0] = 0.0f;
         this.values[2][1] = 0.0f;
-        this.values[2][2] = 0.0f;
+        this.values[2][2] = 1.0f;
         this.values[2][3] = 0.0f;
-        this.values[3][0] = 1.0f;
+        this.values[3][0] = 0.0f;
         this.values[3][1] = 0.0f;
         this.values[3][2] = 0.0f;
-        this.values[3][3] = 0.0f;
+        this.values[3][3] = 1.0f;
     }
 
     public void translate(Vector3D vector){
