@@ -25,6 +25,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -83,6 +90,8 @@
       <option name="presentableId" value="Default" />
       <updated>1599238351268</updated>
       <workItem from="1599238352570" duration="169000" />
+      <workItem from="1599350333233" duration="23000" />
+      <workItem from="1599391516094" duration="6503000" />
     </task>
     <servers />
   </component>
@@ -99,28 +108,37 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1664" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599397024781">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="1664" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1050@0.0.2560.1050" timestamp="1599397024781" />
+    <state x="1725" y="244" key="#com.intellij.ide.util.MemberChooser" timestamp="1599395508003">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="1725" y="244" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050@0.0.2560.1050" timestamp="1599395508003" />
     <state x="572" y="297" key="FileChooserDialogImpl" timestamp="1599238454411">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="572" y="297" key="FileChooserDialogImpl/0.0.2560.1050@0.0.2560.1050" timestamp="1599238454411" />
-    <state width="1234" height="274" key="GridCell.Tab.0.bottom" timestamp="1599238522315">
+    <state width="1329" height="284" key="GridCell.Tab.0.bottom" timestamp="1599399014222">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.bottom/0.0.2560.1050@0.0.2560.1050" timestamp="1599238522315" />
-    <state width="1234" height="274" key="GridCell.Tab.0.center" timestamp="1599238522315">
+    <state width="1329" height="284" key="GridCell.Tab.0.bottom/0.0.2560.1050@0.0.2560.1050" timestamp="1599399014222" />
+    <state width="1329" height="284" key="GridCell.Tab.0.center" timestamp="1599399014222">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.center/0.0.2560.1050@0.0.2560.1050" timestamp="1599238522315" />
-    <state width="1234" height="274" key="GridCell.Tab.0.left" timestamp="1599238522315">
+    <state width="1329" height="284" key="GridCell.Tab.0.center/0.0.2560.1050@0.0.2560.1050" timestamp="1599399014222" />
+    <state width="1329" height="284" key="GridCell.Tab.0.left" timestamp="1599399014222">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.left/0.0.2560.1050@0.0.2560.1050" timestamp="1599238522315" />
-    <state width="1234" height="274" key="GridCell.Tab.0.right" timestamp="1599238522315">
+    <state width="1329" height="284" key="GridCell.Tab.0.left/0.0.2560.1050@0.0.2560.1050" timestamp="1599399014222" />
+    <state width="1329" height="284" key="GridCell.Tab.0.right" timestamp="1599399014222">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="274" key="GridCell.Tab.0.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599238522315" />
+    <state width="1329" height="284" key="GridCell.Tab.0.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599399014222" />
     <state x="346" y="130" key="SettingsEditor" timestamp="1599238463335">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>

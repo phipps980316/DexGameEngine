@@ -1,16 +1,14 @@
-/*package Models;
+package Models;
 
 import Textures.ModelTexture;
 
-public class Model {
+public class RawModel {
     private final int vaoID;
     private final int vertexCount;
-    private final ModelTexture texture;
 
-    public Model(int vaoID, int vertexCount, ModelTexture texture){
+    public RawModel(int vaoID, int vertexCount){
         this.vaoID = vaoID;
         this.vertexCount = vertexCount;
-        this.texture = texture;
     }
 
     public int getVaoID() {
@@ -20,8 +18,4 @@ public class Model {
     public int getVertexCount() {
         return vertexCount;
     }
-
-    public ModelTexture getTexture() {
-        return texture;
-    }
-}*/
+}

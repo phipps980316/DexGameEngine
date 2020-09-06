@@ -1,8 +1,9 @@
 package RenderEngine;
 
-import Models.Model;
 import Models.ModelData;
-import Models.ModelTexture;
+import Models.RawModel;
+import Models.TexturedModel;
+import Textures.ModelTexture;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -24,18 +25,18 @@ public class ModelLoader {
     private final List<Integer> vbos = new ArrayList<>();
     private final List<Integer> textures = new ArrayList<>();
 
-    public Model loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices, ModelTexture modelTexture){
+    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices){
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
         storeDataInAttributeList(0, 3, positions);
         storeDataInAttributeList(1, 2, textureCoords);
         storeDataInAttributeList(2, 3, normals);
         unbindVAO();
-        return new Model(vaoID, indices.length, modelTexture);
+        return new RawModel(vaoID, indices.length);
     }
 
-    public Model loadToVAO(ModelData modelData, ModelTexture modelTexture){
-        return loadToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getIndices(), modelTexture);
+    public RawModel loadToVAO(ModelData modelData){
+        return loadToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getIndices());
     }
 
     public int loadTexture(String fileName) {
