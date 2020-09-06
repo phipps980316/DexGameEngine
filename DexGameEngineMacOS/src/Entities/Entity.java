@@ -1,15 +1,15 @@
 package Entities;
 
+import DataStructures.Vector3D;
 import Models.Model;
-import org.lwjgl.util.vector.Vector3f;
 
 public class Entity {
     private Model model;
-    private Vector3f position;
-    private Vector3f rotation;
+    private Vector3D position;
+    private Vector3D rotation;
     private float scale;
 
-    public Entity(Model model, Vector3f position, Vector3f rotation, float scale) {
+    public Entity(Model model, Vector3D position, Vector3D rotation, float scale) {
         this.model = model;
         this.position = position;
         this.rotation = rotation;
@@ -36,19 +36,19 @@ public class Entity {
         this.model = model;
     }
 
-    public Vector3f getPosition() {
+    public Vector3D getPosition() {
         return position;
     }
 
-    public void setPosition(Vector3f position) {
+    public void setPosition(Vector3D position) {
         this.position = position;
     }
 
-    public Vector3f getRotation() {
+    public Vector3D getRotation() {
         return rotation;
     }
 
-    public void setRotation(Vector3f rotation) {
+    public void setRotation(Vector3D rotation) {
         this.rotation = rotation;
     }
 

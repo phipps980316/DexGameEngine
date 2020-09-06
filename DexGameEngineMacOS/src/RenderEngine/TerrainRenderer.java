@@ -1,22 +1,22 @@
 package RenderEngine;
 
+import DataStructures.Matrix4D;
+import DataStructures.Vector3D;
 import Shaders.TerrainShader;
 import Terrains.Terrain;
 import Models.ModelTexture;
-import Toolbox.MatrixMaths;
+import Maths.MatrixMath;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
 
 import java.util.List;
 
 public class TerrainRenderer {
     private TerrainShader shader;
 
-    public TerrainRenderer(TerrainShader shader, Matrix4f projectionMatrix){
+    public TerrainRenderer(TerrainShader shader, Matrix4D projectionMatrix){
         this.shader = shader;
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
@@ -51,7 +51,7 @@ public class TerrainRenderer {
     }
 
     private void loadTerrainMatrix(Terrain terrain){
-        Matrix4f transformationMatrix = MatrixMaths.createTransformationMatrix(new Vector3f(terrain.getX(), 0, terrain.getZ()), new Vector3f(0,0,0), 1);
+        Matrix4D transformationMatrix = MatrixMath.createTransformationMatrix(new Vector3D(terrain.getX(), 0, terrain.getZ()), new Vector3D(0,0,0), 1);
         shader.loadTransformationMatrix(transformationMatrix);
     }
 }

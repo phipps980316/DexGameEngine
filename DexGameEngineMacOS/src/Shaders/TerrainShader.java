@@ -1,10 +1,10 @@
 package Shaders;
 
+import DataStructures.Matrix4D;
+import DataStructures.Vector3D;
 import Entities.Camera;
 import Entities.Light;
-import Toolbox.MatrixMaths;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
+import Maths.MatrixMath;
 
 public class TerrainShader extends Shader{
     private static final String VERTEX_FILE = "src/shaders/terrainVertexShader.txt";
@@ -42,16 +42,16 @@ public class TerrainShader extends Shader{
         skyColourLocation = super.getUniformVariableLocation("skyColour");
     }
 
-    public void loadTransformationMatrix(Matrix4f matrix) {
+    public void loadTransformationMatrix(Matrix4D matrix) {
         super.loadMatrix(transformationMatrixLocation, matrix);
     }
 
-    public void loadProjectionMatrix(Matrix4f matrix) {
+    public void loadProjectionMatrix(Matrix4D matrix) {
         super.loadMatrix(projectionMatrixLocation, matrix);
     }
 
     public void loadViewMatrix(Camera camera) {
-        Matrix4f viewMatrix = MatrixMaths.createViewMatrix(camera);
+        Matrix4D viewMatrix = MatrixMath.createViewMatrix(camera);
         super.loadMatrix(viewMatrixLocation, viewMatrix);
     }
 
@@ -65,7 +65,7 @@ public class TerrainShader extends Shader{
         super.loadFloat(reflectivityLocation, reflectivity);
     }
 
-    public void loadSkyColour(Vector3f rgb){
+    public void loadSkyColour(Vector3D rgb){
         super.loadVector(skyColourLocation, rgb);
     }
 }

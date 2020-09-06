@@ -1,15 +1,15 @@
 package RenderEngine;
 
+import DataStructures.Matrix4D;
 import Entities.Entity;
 import Models.Model;
 import Shaders.EntityShader;
 import Models.ModelTexture;
-import Toolbox.MatrixMaths;
+import Maths.MatrixMath;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-import org.lwjgl.util.vector.Matrix4f;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,7 @@ public class EntityRenderer {
 
     private EntityShader shader;
 
-    public EntityRenderer(EntityShader shader, Matrix4f projectionMatrix){
+    public EntityRenderer(EntityShader shader, Matrix4D projectionMatrix){
         this.shader = shader;
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
@@ -61,7 +61,7 @@ public class EntityRenderer {
     }
 
     private void prepareInstance(Entity entity){
-        Matrix4f transformationMatrix = MatrixMaths.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
+        Matrix4D transformationMatrix = MatrixMath.createTransformationMatrix(entity.getPosition(), entity.getRotation(), entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
     }
 }

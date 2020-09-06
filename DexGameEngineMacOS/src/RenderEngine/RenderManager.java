@@ -1,5 +1,7 @@
 package RenderEngine;
 
+import DataStructures.Matrix4D;
+import DataStructures.Vector3D;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
@@ -9,8 +11,6 @@ import Shaders.TerrainShader;
 import Terrains.Terrain;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,9 +22,9 @@ public class RenderManager {
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000f;
 
-    private static final Vector3f skyColour = new Vector3f(0.3f,0.3f,0.3f);
+    private static final Vector3D skyColour = new Vector3D(0.3f,0.3f,0.3f);
 
-    private Matrix4f projectionMatrix;
+    private Matrix4D projectionMatrix;
 
     private EntityShader entityShader = new EntityShader();
     private EntityRenderer entityRenderer;
@@ -48,13 +48,13 @@ public class RenderManager {
         float xScale = yScale / aspectRatio;
         float frustumLength = FAR_PLANE - NEAR_PLANE;
 
-        projectionMatrix = new Matrix4f();
-        projectionMatrix.m00 = xScale;
-        projectionMatrix.m11 = yScale;
-        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustumLength);
-        projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = -((2*NEAR_PLANE*FAR_PLANE) / frustumLength);
-        projectionMatrix.m33 = 0;
+        projectionMatrix = new Matrix4D();
+        projectionMatrix.values[0][0] = xScale;
+        projectionMatrix.values[1][1] = yScale;
+        projectionMatrix.values[2][2] = -((FAR_PLANE + NEAR_PLANE) / frustumLength);
+        projectionMatrix.values[2][3] = -1;
+        projectionMatrix.values[3][2] = -((2*NEAR_PLANE*FAR_PLANE) / frustumLength);
+        projectionMatrix.values[3][3] = 0;
     }
 
     public void prepare(){

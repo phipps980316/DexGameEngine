@@ -1,10 +1,10 @@
 package Entities;
 
+import DataStructures.Vector3D;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
-    private final Vector3f position = new Vector3f(0,5,0);
+    private final Vector3D position = new Vector3D(0,5,0);
     private float pitch = 10;
     private float yaw;
     private float roll;
@@ -34,7 +34,7 @@ public class Camera {
         }
     }
 
-    public Vector3f getPosition() {
+    public Vector3D getPosition() {
         return position;
     }
 

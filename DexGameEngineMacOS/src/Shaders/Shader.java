@@ -1,10 +1,10 @@
 package Shaders;
 
+import DataStructures.Matrix4D;
+import DataStructures.Vector3D;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -63,7 +63,7 @@ public abstract class Shader {
         GL20.glUniform1f(location, value);
     }
 
-    protected void loadVector(int location, Vector3f vector){
+    protected void loadVector(int location, Vector3D vector){
         GL20.glUniform3f(location, vector.x, vector.y, vector.z);
     }
 
@@ -73,7 +73,7 @@ public abstract class Shader {
         GL20.glUniform1f(location, toLoad);
     }
 
-    protected void loadMatrix(int location, Matrix4f matrix){
+    protected void loadMatrix(int location, Matrix4D matrix){
         matrix.store(matrixBuffer);
         matrixBuffer.flip();
         GL20.glUniformMatrix4(location, false, matrixBuffer);
