@@ -18,6 +18,11 @@ public class TerrainShader extends Shader{
     private int shineDamperLocation;
     private int reflectivityLocation;
     private int skyColourLocation;
+    private int backgroundTextureLocation;
+    private int rTextureLocation;
+    private int gTextureLocation;
+    private int bTextureLocation;
+    private int blendMapLocation;
 
     public TerrainShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -40,6 +45,19 @@ public class TerrainShader extends Shader{
         shineDamperLocation = super.getUniformVariableLocation("shineDamper");
         reflectivityLocation = super.getUniformVariableLocation("reflectivity");
         skyColourLocation = super.getUniformVariableLocation("skyColour");
+        backgroundTextureLocation = super.getUniformVariableLocation("backgroundTexture");
+        rTextureLocation = super.getUniformVariableLocation("rTexture");
+        gTextureLocation = super.getUniformVariableLocation("gTexture");
+        bTextureLocation = super.getUniformVariableLocation("bTexture");
+        blendMapLocation = super.getUniformVariableLocation("blendMap");
+    }
+
+    public void connectTextures(){
+        super.loadInt(backgroundTextureLocation, 0);
+        super.loadInt(rTextureLocation, 1);
+        super.loadInt(gTextureLocation, 2);
+        super.loadInt(bTextureLocation, 3);
+        super.loadInt(blendMapLocation, 4);
     }
 
     public void loadTransformationMatrix(Matrix4f matrix) {

@@ -1,8 +1,10 @@
 package Terrains;
 
-import Models.Model;
+import Models.RawModel;
 import RenderEngine.ModelLoader;
-import Models.ModelTexture;
+import Textures.ModelTexture;
+import Textures.TerrainTexture;
+import Textures.TerrainTexturePack;
 
 public class Terrain {
     private static final float SIZE = 800;
@@ -10,15 +12,19 @@ public class Terrain {
 
     private float x;
     private float z;
-    private Model model;
+    private RawModel model;
+    private TerrainTexturePack texturePack;
+    private TerrainTexture blendMap;
 
-    public Terrain(int gridX, int gridZ, ModelLoader loader, ModelTexture texture){
+    public Terrain(int gridX, int gridZ, ModelLoader loader, TerrainTexturePack texturePack, TerrainTexture blendMap){
+        this.texturePack = texturePack;
+        this.blendMap = blendMap;
         this.x = gridX * SIZE;
         this.z = gridZ * SIZE;
-        this.model = generateTerrain(loader, texture);
+        this.model = generateTerrain(loader);
     }
 
-    private Model generateTerrain(ModelLoader loader, ModelTexture modelTexture){
+    private RawModel generateTerrain(ModelLoader loader){
         int count = VERTEX_COUNT * VERTEX_COUNT;
         float[] vertices = new float[count * 3];
         float[] normals = new float[count * 3];
@@ -53,7 +59,7 @@ public class Terrain {
                 indices[pointer++] = bottomRight;
             }
         }
-        return loader.loadToVAO(vertices, textureCoords, normals, indices, modelTexture);
+        return loader.loadToVAO(vertices, textureCoords, normals, indices);
     }
 
     public float getX() {
@@ -72,11 +78,19 @@ public class Terrain {
         this.z = z;
     }
 
-    public Model getModel() {
+    public RawModel getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(RawModel model) {
         this.model = model;
+    }
+
+    public TerrainTexturePack getTexturePack() {
+        return texturePack;
+    }
+
+    public TerrainTexture getBlendMap() {
+        return blendMap;
     }
 }

@@ -1,9 +1,9 @@
 package RenderEngine;
 
 import Entities.Entity;
-import Models.Model;
+import Models.TexturedModel;
 import Shaders.EntityShader;
-import Models.ModelTexture;
+import Textures.ModelTexture;
 import Toolbox.MatrixMaths;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -25,20 +25,20 @@ public class EntityRenderer {
         shader.stop();
     }
 
-    public void render(Map<Model, List<Entity>> entities){
-        for(Model model:entities.keySet()){
+    public void render(Map<TexturedModel, List<Entity>> entities){
+        for(TexturedModel model:entities.keySet()){
             prepareTexturedModel(model);
             List<Entity> batch = entities.get(model);
             for(Entity entity:batch){
                 prepareInstance(entity);
-                GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+                GL11.glDrawElements(GL11.GL_TRIANGLES, model.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
             }
             unbindTexturedModel();
         }
     }
 
-    private void prepareTexturedModel(Model model){
-        GL30.glBindVertexArray(model.getVaoID());
+    private void prepareTexturedModel(TexturedModel model){
+        GL30.glBindVertexArray(model.getModel().getVaoID());
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);

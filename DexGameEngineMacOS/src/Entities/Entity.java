@@ -1,15 +1,15 @@
 package Entities;
 
-import Models.Model;
+import Models.TexturedModel;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Entity {
-    private Model model;
+    private TexturedModel model;
     private Vector3f position;
     private Vector3f rotation;
     private float scale;
 
-    public Entity(Model model, Vector3f position, Vector3f rotation, float scale) {
+    public Entity(TexturedModel model, Vector3f position, Vector3f rotation, float scale) {
         this.model = model;
         this.position = position;
         this.rotation = rotation;
@@ -28,11 +28,11 @@ public class Entity {
         this.rotation.z+=dz;
     }
 
-    public Model getModel() {
+    public TexturedModel getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(TexturedModel model) {
         this.model = model;
     }
 

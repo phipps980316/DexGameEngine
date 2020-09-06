@@ -1,4 +1,6 @@
-package Models;
+/*package Models;
+
+import Textures.ModelTexture;
 
 public class Model {
     private final int vaoID;
@@ -22,4 +24,4 @@ public class Model {
     public ModelTexture getTexture() {
         return texture;
     }
-}
+}*/

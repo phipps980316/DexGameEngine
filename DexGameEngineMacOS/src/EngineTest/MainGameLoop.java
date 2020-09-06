@@ -4,11 +4,14 @@ import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
 import IO.ModelFileLoader;
-import Models.Model;
 import Models.ModelData;
+import Models.RawModel;
+import Models.TexturedModel;
 import RenderEngine.*;
-import Models.ModelTexture;
+import Textures.ModelTexture;
 import Terrains.Terrain;
+import Textures.TerrainTexture;
+import Textures.TerrainTexturePack;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -18,6 +21,7 @@ import java.util.Random;
 
 public class MainGameLoop {
     public static void main(String[] args) {
+        //cubeDemo();
         landscapeDemo();
     }
 
@@ -28,7 +32,7 @@ public class MainGameLoop {
         ModelData modelData = ModelFileLoader.loadModel("cube");
         ModelTexture modelTexture = new ModelTexture(modelLoader.loadTexture("cube"), 1, 0, false, false);
         assert modelData != null;
-        Model cube = modelLoader.loadToVAO(modelData, modelTexture);
+        TexturedModel cube = new TexturedModel(modelLoader.loadToVAO(modelData), modelTexture);
         Entity entity = new Entity(cube, new Vector3f(0, 0, -25), new Vector3f(0,0,0), 1);
 
         Light light = new Light(new Vector3f(20000,20000,2000), new Vector3f(1,1,1));
@@ -55,12 +59,12 @@ public class MainGameLoop {
         ModelData grassData = ModelFileLoader.loadModel("grassModel");
         ModelTexture grassTexture = new ModelTexture(modelLoader.loadTexture("grassTexture"),1,0, true, true);
         assert grassData != null;
-        Model grass = modelLoader.loadToVAO(grassData, grassTexture);
+        TexturedModel grass = new TexturedModel(modelLoader.loadToVAO(grassData), grassTexture);
 
         ModelData fernData = ModelFileLoader.loadModel("fern");
         ModelTexture fernTexture = new ModelTexture(modelLoader.loadTexture("fern"),1,0, true, false);
         assert fernData != null;
-        Model fern = modelLoader.loadToVAO(fernData, fernTexture);
+        TexturedModel fern = new TexturedModel(modelLoader.loadToVAO(fernData), fernTexture);
 
         List<Entity> entities = new ArrayList<>();
         Random random = new Random();
@@ -73,9 +77,18 @@ public class MainGameLoop {
         Light light = new Light(new Vector3f(20000,20000,2000), new Vector3f(1,1,1));
         Camera camera = new Camera();
 
-        ModelTexture terrainTexture = new ModelTexture(modelLoader.loadTexture("grass"), 1, 0, false, false);
-        Terrain terrain = new Terrain(0,-1,modelLoader, terrainTexture);
-        Terrain terrain2 = new Terrain(-1,-1,modelLoader, terrainTexture);
+
+        TerrainTexture backgroundTexture = new TerrainTexture(modelLoader.loadTexture("grass"));
+        TerrainTexture rTexture = new TerrainTexture(modelLoader.loadTexture("mud"));
+        TerrainTexture gTexture = new TerrainTexture(modelLoader.loadTexture("grassFlowers"));
+        TerrainTexture bTexture = new TerrainTexture(modelLoader.loadTexture("path"));
+        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
+
+        TerrainTexture blendMap = new TerrainTexture(modelLoader.loadTexture("blendMap"));
+
+
+        Terrain terrain = new Terrain(0,-1,modelLoader, texturePack, blendMap);
+        Terrain terrain2 = new Terrain(-1,-1,modelLoader, texturePack, blendMap);
 
         RenderManager renderManager = new RenderManager();
         while(!Display.isCloseRequested()){

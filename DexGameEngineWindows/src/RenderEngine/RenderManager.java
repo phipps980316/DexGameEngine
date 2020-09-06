@@ -3,7 +3,7 @@ package RenderEngine;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
-import Models.Model;
+import Models.TexturedModel;
 import Shaders.EntityShader;
 import Shaders.TerrainShader;
 import Terrains.Terrain;
@@ -32,7 +32,7 @@ public class RenderManager {
     private TerrainShader terrainShader = new TerrainShader();
     private TerrainRenderer terrainRenderer;
 
-    private Map<Model, List<Entity>> entities = new HashMap<>();
+    private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
     private List<Terrain> terrains = new ArrayList<>();
 
     public RenderManager(){
@@ -96,7 +96,7 @@ public class RenderManager {
     }
 
     public void processEntity(Entity entity){
-        Model entityModel = entity.getModel();
+        TexturedModel entityModel = entity.getModel();
         List<Entity> batch = entities.get(entityModel);
         if(batch != null) {
             batch.add(entity);
