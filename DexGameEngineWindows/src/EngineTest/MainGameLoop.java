@@ -4,9 +4,10 @@ import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
 import Entities.Player;
+import GUI.GUIRenderer;
+import GUI.GUITexture;
 import IO.ModelFileLoader;
 import Models.ModelData;
-import Models.RawModel;
 import Models.TexturedModel;
 import RenderEngine.*;
 import Textures.ModelTexture;
@@ -14,6 +15,7 @@ import Terrains.Terrain;
 import Textures.TerrainTexture;
 import Textures.TerrainTexturePack;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import java.util.ArrayList;
@@ -39,7 +41,6 @@ public class MainGameLoop {
 
         TerrainTexture blendMap = new TerrainTexture(modelLoader.loadTexture("blendMap"));
 
-
         Terrain terrain = new Terrain(0,-1,modelLoader, texturePack, blendMap, "heightmap");
 
         ModelData fernData = ModelFileLoader.loadModel("fern");
@@ -64,6 +65,13 @@ public class MainGameLoop {
         Player player = new Player(playerModel, new Vector3f(100, 0, -50), new Vector3f(0,0,0), 1);
         Camera camera = new Camera(player);
 
+        List<GUITexture> GUIs = new ArrayList<>();
+        GUITexture guiTexture = new GUITexture(modelLoader.loadTexture("health"), new Vector2f(-0.75f, -0.75f), new Vector2f(0.25f, 0.25f));
+        GUIs.add(guiTexture);
+
+        GUIRenderer guiRenderer = new GUIRenderer(modelLoader);
+
+
         RenderManager renderManager = new RenderManager();
         while(!Display.isCloseRequested()){
             camera.move();
@@ -74,9 +82,11 @@ public class MainGameLoop {
                 renderManager.processEntity(entity);
             }
             renderManager.render(light, camera);
+            guiRenderer.render(GUIs);
             DisplayManager.updateDisplay();
         }
 
+        guiRenderer.cleanUp();
         renderManager.cleanUp();
         modelLoader.cleanUp();
         DisplayManager.closeDisplay();
