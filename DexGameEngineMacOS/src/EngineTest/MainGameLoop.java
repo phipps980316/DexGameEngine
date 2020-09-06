@@ -43,7 +43,7 @@ public class MainGameLoop {
         Random random = new Random();
         for(int i = 0; i < 200; i++){
             entities.add(new Entity(grass, new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600), new Vector3f(0,0,0), 3));
-            entities.add(new Entity(fern, new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600), new Vector3f(0,0,0), 6));
+            //entities.add(new Entity(fern, new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600), new Vector3f(0,0,0), 6));
         }
 
 
