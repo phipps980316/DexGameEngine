@@ -63,18 +63,18 @@ public class RenderManager {
         GL11.glClearColor(skyColour.x, skyColour.y, skyColour.z, 1);
     }
 
-    public void render(Light light, Camera camera){
+    public void render(List<Light> lights, Camera camera){
         prepare();
         entityShader.start();
         entityShader.loadSkyColour(skyColour);
-        entityShader.loadLight(light);
+        entityShader.loadLights(lights);
         entityShader.loadViewMatrix(camera);
         entityRenderer.render(entities);
         entityShader.stop();
 
         terrainShader.start();
         terrainShader.loadSkyColour(skyColour);
-        terrainShader.loadLight(light);
+        terrainShader.loadLights(lights);
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
         terrainShader.stop();
