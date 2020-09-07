@@ -11,7 +11,7 @@ import java.util.List;
 
 public class EntityShader extends Shader {
 
-    private static final int MAX_LIGHTS = 4;
+    private static final int MAX_LIGHTS = 2;
 
     private static final String VERTEX_FILE = "src/shaders/entityVertexShader.txt";
     private static final String FRAGMENT_FILE = "src/shaders/entityFragmentShader.txt";
@@ -21,6 +21,7 @@ public class EntityShader extends Shader {
     private int viewMatrixLocation;
     private int lightPositionLocation[];
     private int lightColourLocation[];
+    private int attenuationLocation[];
     private int shineDamperLocation;
     private int reflectivityLocation;
     private int fakeLightingLocation;
@@ -53,9 +54,11 @@ public class EntityShader extends Shader {
 
         lightPositionLocation = new int[MAX_LIGHTS];
         lightColourLocation = new int[MAX_LIGHTS];
+        attenuationLocation = new int[MAX_LIGHTS];
         for(int i = 0; i < MAX_LIGHTS; i++){
             lightPositionLocation[i] = super.getUniformVariableLocation("lightPosition["+i+"]");
             lightColourLocation[i] = super.getUniformVariableLocation("lightColour["+i+"]");
+            attenuationLocation[i] = super.getUniformVariableLocation("attenuation["+i+"]");
         }
 
     }
@@ -78,9 +81,11 @@ public class EntityShader extends Shader {
             if(i<lights.size()){
                 super.load3DVector(lightPositionLocation[i], lights.get(i).getPosition());
                 super.load3DVector(lightColourLocation[i], lights.get(i).getColour());
+                super.load3DVector(attenuationLocation[i], lights.get(i).getAttenuation());
             } else {
                 super.load3DVector(lightPositionLocation[i], new Vector3f(0,0,0));
                 super.load3DVector(lightColourLocation[i], new Vector3f(0,0,0));
+                super.load3DVector(attenuationLocation[i], new Vector3f(1,0,0));
             }
         }
     }

@@ -31,16 +31,17 @@ public class MainGameLoop {
         DisplayManager.createDisplay();
         ModelLoader modelLoader = new ModelLoader();
 
-        Light light = new Light(new Vector3f(0, 10000, -7000), new Vector3f(1,1,1));
-        Light light2 = new Light(new Vector3f(-200,10,-200), new Vector3f(1,0,0));
-        Light light3 = new Light(new Vector3f(200,10,200), new Vector3f(0,1,0));
-        Light light4 = new Light(new Vector3f(200,1000,100), new Vector3f(0,0,1));
+        Light light = new Light(new Vector3f(0, 10000, -7000), new Vector3f(0.4f,0.4f,0.4f));
+        Light light2 = new Light(new Vector3f(0,10,0), new Vector3f(1,0,0), new Vector3f(1,0.01f,0.002f));
 
         List<Light> lights = new ArrayList<>();
         lights.add(light);
         lights.add(light2);
-        lights.add(light3);
-        lights.add(light4);
+
+        ModelData lampData = ModelFileLoader.loadModel("lamp");
+        ModelTexture lampTexture = new ModelTexture(modelLoader.loadTexture("lamp"),1,0, true, false);
+        assert lampData != null;
+        TexturedModel lamp = new TexturedModel(modelLoader.loadToVAO(lampData), lampTexture);
 
         TerrainTexture backgroundTexture = new TerrainTexture(modelLoader.loadTexture("grassy2"));
         TerrainTexture rTexture = new TerrainTexture(modelLoader.loadTexture("mud"));
@@ -59,6 +60,7 @@ public class MainGameLoop {
         TexturedModel fern = new TexturedModel(modelLoader.loadToVAO(fernData), fernTexture);
 
         List<Entity> entities = new ArrayList<>();
+        entities.add(new Entity(lamp, new Vector3f(0, -4.7f, 0), new Vector3f(0,0,0), 1));
         Random random = new Random();
         for(int i = 0; i < 200; i++){
             float x = random.nextFloat() * 800;
@@ -71,7 +73,7 @@ public class MainGameLoop {
         ModelTexture playerTexture = new ModelTexture(modelLoader.loadTexture("playerTexture"),1,0, true, true);
         assert playerData != null;
         TexturedModel playerModel = new TexturedModel(modelLoader.loadToVAO(playerData), playerTexture);
-        Player player = new Player(playerModel, new Vector3f(100, 0, -50), new Vector3f(0,0,0), 1);
+        Player player = new Player(playerModel, new Vector3f(50, 0, -50), new Vector3f(0,0,0), 1);
         Camera camera = new Camera(player);
 
         List<GUITexture> GUIs = new ArrayList<>();
