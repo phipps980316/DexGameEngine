@@ -32,14 +32,17 @@ public class RenderManager {
     private TerrainShader terrainShader = new TerrainShader();
     private TerrainRenderer terrainRenderer;
 
+    private SkyBoxRenderer skyBoxRenderer;
+
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
     private List<Terrain> terrains = new ArrayList<>();
 
-    public RenderManager(){
+    public RenderManager(ModelLoader loader){
         enableCulling();
         createProjectionMatrix();
         entityRenderer = new EntityRenderer(entityShader, projectionMatrix);
         terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
+        skyBoxRenderer = new SkyBoxRenderer(loader, projectionMatrix);
     }
 
     private void createProjectionMatrix(){
@@ -78,6 +81,9 @@ public class RenderManager {
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
         terrainShader.stop();
+
+        skyBoxRenderer.render(camera);
+
         terrains.clear();
         entities.clear();
     }

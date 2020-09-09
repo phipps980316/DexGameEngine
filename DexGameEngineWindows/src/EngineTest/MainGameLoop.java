@@ -83,7 +83,7 @@ public class MainGameLoop {
         GUIRenderer guiRenderer = new GUIRenderer(modelLoader);
 
 
-        RenderManager renderManager = new RenderManager();
+        RenderManager renderManager = new RenderManager(modelLoader);
         while(!Display.isCloseRequested()){
             camera.move();
             player.move(terrain);

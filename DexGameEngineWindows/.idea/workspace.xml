@@ -45,7 +45,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/natives/OpenAL32.dll" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jars/PNGDecoder.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -69,15 +69,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -102,6 +100,10 @@
       <workItem from="1599400200775" duration="10000" />
       <workItem from="1599404868963" duration="8123000" />
       <workItem from="1599420509348" duration="7950000" />
+      <workItem from="1599499316131" duration="96000" />
+      <workItem from="1599678614119" duration="3000" />
+      <workItem from="1599678675104" duration="37000" />
+      <workItem from="1599678752671" duration="3324000" />
     </task>
     <servers />
   </component>
@@ -125,30 +127,30 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1664" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1050@0.0.2560.1050" timestamp="1599413222297" />
-    <state x="1725" y="244" key="#com.intellij.ide.util.MemberChooser" timestamp="1599426664633">
+    <state x="1725" y="244" key="#com.intellij.ide.util.MemberChooser" timestamp="1599679220029">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state x="1725" y="244" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050@0.0.2560.1050" timestamp="1599426664633" />
-    <state x="572" y="297" key="FileChooserDialogImpl" timestamp="1599238454411">
+    <state x="1725" y="244" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050@0.0.2560.1050" timestamp="1599679220029" />
+    <state x="572" y="297" key="FileChooserDialogImpl" timestamp="1599679051911">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state x="572" y="297" key="FileChooserDialogImpl/0.0.2560.1050@0.0.2560.1050" timestamp="1599238454411" />
-    <state width="1234" height="306" key="GridCell.Tab.0.bottom" timestamp="1599428392941">
+    <state x="572" y="297" key="FileChooserDialogImpl/0.0.2560.1050@0.0.2560.1050" timestamp="1599679051911" />
+    <state width="1234" height="303" key="GridCell.Tab.0.bottom" timestamp="1599682096699">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="306" key="GridCell.Tab.0.bottom/0.0.2560.1050@0.0.2560.1050" timestamp="1599428392941" />
-    <state width="1234" height="306" key="GridCell.Tab.0.center" timestamp="1599428392941">
+    <state width="1234" height="303" key="GridCell.Tab.0.bottom/0.0.2560.1050@0.0.2560.1050" timestamp="1599682096699" />
+    <state width="1234" height="303" key="GridCell.Tab.0.center" timestamp="1599682096699">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="306" key="GridCell.Tab.0.center/0.0.2560.1050@0.0.2560.1050" timestamp="1599428392941" />
-    <state width="1234" height="306" key="GridCell.Tab.0.left" timestamp="1599428392940">
+    <state width="1234" height="303" key="GridCell.Tab.0.center/0.0.2560.1050@0.0.2560.1050" timestamp="1599682096699" />
+    <state width="1234" height="303" key="GridCell.Tab.0.left" timestamp="1599682096699">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="306" key="GridCell.Tab.0.left/0.0.2560.1050@0.0.2560.1050" timestamp="1599428392940" />
-    <state width="1234" height="306" key="GridCell.Tab.0.right" timestamp="1599428392941">
+    <state width="1234" height="303" key="GridCell.Tab.0.left/0.0.2560.1050@0.0.2560.1050" timestamp="1599682096699" />
+    <state width="1234" height="303" key="GridCell.Tab.0.right" timestamp="1599682096699">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="1234" height="306" key="GridCell.Tab.0.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599428392941" />
+    <state width="1234" height="303" key="GridCell.Tab.0.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599682096699" />
     <state width="1234" height="351" key="GridCell.Tab.1.bottom" timestamp="1599420305594">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
@@ -165,9 +167,9 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state width="1234" height="351" key="GridCell.Tab.1.right/0.0.2560.1050@0.0.2560.1050" timestamp="1599420305594" />
-    <state x="346" y="130" key="SettingsEditor" timestamp="1599238463335">
+    <state x="1054" y="166" key="SettingsEditor" timestamp="1599679056708">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state x="346" y="130" key="SettingsEditor/0.0.2560.1050@0.0.2560.1050" timestamp="1599238463335" />
+    <state x="1054" y="166" key="SettingsEditor/0.0.2560.1050@0.0.2560.1050" timestamp="1599679056708" />
   </component>
 </project>
