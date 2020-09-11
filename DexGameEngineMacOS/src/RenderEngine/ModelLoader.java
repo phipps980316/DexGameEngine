@@ -2,12 +2,9 @@ package RenderEngine;
 
 import Models.ModelData;
 import Models.RawModel;
-import Models.TexturedModel;
-import Textures.ModelTexture;
 import Textures.TextureData;
 import de.matthiasmann.twl.utils.PNGDecoder;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
 import org.newdawn.slick.opengl.Texture;
@@ -18,7 +15,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 

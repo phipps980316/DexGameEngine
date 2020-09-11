@@ -14,6 +14,7 @@ import Textures.ModelTexture;
 import Terrains.Terrain;
 import Textures.TerrainTexture;
 import Textures.TerrainTexturePack;
+import Toolbox.MousePicker;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -84,9 +85,14 @@ public class MainGameLoop {
 
 
         RenderManager renderManager = new RenderManager(modelLoader);
+
+        MousePicker picker = new MousePicker(camera, renderManager.getProjectionMatrix());
+
         while(!Display.isCloseRequested()){
             camera.move();
             player.move(terrain);
+            picker.update();
+            System.out.println(picker.getCurrentRay());
             renderManager.processEntity(player);
             renderManager.processTerrain(terrain);
             for(Entity entity:entities){
