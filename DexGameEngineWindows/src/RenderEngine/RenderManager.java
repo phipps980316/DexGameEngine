@@ -22,7 +22,7 @@ public class RenderManager {
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000f;
 
-    private static final Vector3f skyColour = new Vector3f(0.3f,0.3f,0.3f);
+    private static final Vector3f skyColour = new Vector3f(0.2f,0.2f,0.2f);
 
     private Matrix4f projectionMatrix;
 
@@ -82,7 +82,7 @@ public class RenderManager {
         terrainRenderer.render(terrains);
         terrainShader.stop();
 
-        skyBoxRenderer.render(camera);
+        skyBoxRenderer.render(camera, skyColour);
 
         terrains.clear();
         entities.clear();
