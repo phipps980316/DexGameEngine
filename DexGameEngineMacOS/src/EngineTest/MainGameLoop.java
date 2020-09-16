@@ -1,5 +1,8 @@
 package EngineTest;
 
+import Beta.Cube;
+import Beta.Face;
+import Beta.FaceOption;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
@@ -32,19 +35,11 @@ public class MainGameLoop {
         DisplayManager.createDisplay();
         ModelLoader modelLoader = new ModelLoader();
 
-        Light light = new Light(new Vector3f(0, 10000, -7000), new Vector3f(0.4f,0.4f,0.4f));
-        Light light2 = new Light(new Vector3f(400,10,-400), new Vector3f(10,10,0), new Vector3f(1,0.01f,0.002f));
-
+        Light light = new Light(new Vector3f(10, 10, 10), new Vector3f(0.4f,0.4f,0.4f));
         List<Light> lights = new ArrayList<>();
         lights.add(light);
-        lights.add(light2);
 
-        ModelData lampData = ModelFileLoader.loadModel("lamp");
-        ModelTexture lampTexture = new ModelTexture(modelLoader.loadTexture("lamp"),1,0, true, false);
-        assert lampData != null;
-        TexturedModel lamp = new TexturedModel(modelLoader.loadToVAO(lampData), lampTexture);
-
-        TerrainTexture backgroundTexture = new TerrainTexture(modelLoader.loadTexture("grassy2"));
+        /*TerrainTexture backgroundTexture = new TerrainTexture(modelLoader.loadTexture("grassy2"));
         TerrainTexture rTexture = new TerrainTexture(modelLoader.loadTexture("mud"));
         TerrainTexture gTexture = new TerrainTexture(modelLoader.loadTexture("grassFlowers"));
         TerrainTexture bTexture = new TerrainTexture(modelLoader.loadTexture("path"));
@@ -52,29 +47,44 @@ public class MainGameLoop {
 
         TerrainTexture blendMap = new TerrainTexture(modelLoader.loadTexture("blendMap"));
 
-        Terrain terrain = new Terrain(0,-1,modelLoader, texturePack, blendMap, "heightmap");
+        Terrain terrain = new Terrain(0,-1,modelLoader, texturePack, blendMap, "heightmap");*/
 
-        ModelData fernData = ModelFileLoader.loadModel("fern");
-        ModelTexture fernTexture = new ModelTexture(modelLoader.loadTexture("fern"),1,0, true, false);
-        fernTexture.setNumberOfRows(2);
-        assert fernData != null;
-        TexturedModel fern = new TexturedModel(modelLoader.loadToVAO(fernData), fernTexture);
+        Cube cubeModel = new Cube(new FaceOption[]{FaceOption.TOP, FaceOption.LEFT, FaceOption.RIGHT, FaceOption.BOTTOM, FaceOption.FRONT, FaceOption.BACK});
+        ModelData cubeData = cubeModel.getRenderData();
+        //ModelData cubeData = ModelFileLoader.loadModel("cube");
+        ModelTexture cubeTexture = new ModelTexture(modelLoader.loadTexture("cube1"),1,1, true, false);
+        assert cubeData != null;
+        TexturedModel cube = new TexturedModel(modelLoader.loadToVAO(cubeData), cubeTexture);
+
+        //ModelData cubeData2 = ModelFileLoader.loadModel("cubebig");
+        //ModelTexture cubeTexture2 = new ModelTexture(modelLoader.loadTexture("cube1"),1,0, true, false);
+        //assert cubeData2 != null;
+        //TexturedModel cube2 = new TexturedModel(modelLoader.loadToVAO(cubeData2), cubeTexture);
 
         List<Entity> entities = new ArrayList<>();
-        entities.add(new Entity(lamp, new Vector3f(400, -4.7f, -400), new Vector3f(0,0,0), 1));
-        Random random = new Random();
+        //entities.add(new Entity(lamp, new Vector3f(400, -4.7f, -400), new Vector3f(0,0,0), 1));
+        /*Random random = new Random();
         for(int i = 0; i < 200; i++){
             float x = random.nextFloat() * 800;
             float z = random.nextFloat() * -800;
             float y = terrain.getTerrainHeightAtPlayer(x, z);
-            entities.add(new Entity(fern, new Vector3f(x,y,z), new Vector3f(0,0,0), 2, random.nextInt(4)));
-        }
+            entities.add(new Entity(cube, new Vector3f(x,y,z), new Vector3f(0,0,0), 2, random.nextInt(4)));
+        }*/
+
+        //for(int x = 0; x < 250; x++){
+           // for(int z = 0; z < 250; z++){
+            //    entities.add(new Entity(cube, new Vector3f(x*2,0,z*2), new Vector3f(0,0,0), 1));
+           // }
+       // }
+
+        entities.add(new Entity(cube, new Vector3f(0,0,0), new Vector3f(0,0,0), 1));
+        //entities.add(new Entity(cube2, new Vector3f(5,0,5), new Vector3f(0,0,0), 1));
 
         ModelData playerData = ModelFileLoader.loadModel("player");
         ModelTexture playerTexture = new ModelTexture(modelLoader.loadTexture("playerTexture"),1,0, true, true);
         assert playerData != null;
         TexturedModel playerModel = new TexturedModel(modelLoader.loadToVAO(playerData), playerTexture);
-        Player player = new Player(playerModel, new Vector3f(350, 0, -350), new Vector3f(0,0,0), 1);
+        Player player = new Player(playerModel, new Vector3f(0, 0, 0), new Vector3f(0,0,0), 1);
         Camera camera = new Camera(player);
 
         List<GUITexture> GUIs = new ArrayList<>();
@@ -90,11 +100,10 @@ public class MainGameLoop {
 
         while(!Display.isCloseRequested()){
             camera.move();
-            player.move(terrain);
+            //player.move(terrain);
             picker.update();
-            System.out.println(picker.getCurrentRay());
-            renderManager.processEntity(player);
-            renderManager.processTerrain(terrain);
+            //renderManager.processEntity(player);
+            //renderManager.processTerrain(terrain);
             for(Entity entity:entities){
                 renderManager.processEntity(entity);
             }
