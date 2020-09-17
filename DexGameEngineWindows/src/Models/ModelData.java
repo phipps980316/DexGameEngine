@@ -8,6 +8,8 @@ public class ModelData implements Serializable {
     private float[] normals;
     private int[] indices;
     private float furthestPoint;
+    private int count;
+
 
     public ModelData(float[] vertices, float[] textureCoords, float[] normals, int[] indices, float furthestPoint){
         this.vertices = vertices;
@@ -15,6 +17,13 @@ public class ModelData implements Serializable {
         this.normals = normals;
         this.indices = indices;
         this.furthestPoint = furthestPoint;
+    }
+
+    public ModelData(float[] vertices, float[] textureCoords, float[] normals, int count){
+        this.vertices = vertices;
+        this.textureCoords = textureCoords;
+        this.normals = normals;
+        this.count = count;
     }
 
     public float[] getVertices(){
@@ -35,5 +44,9 @@ public class ModelData implements Serializable {
 
     public float getFurthestPoint(){
         return furthestPoint;
+    }
+
+    public int getCount(){
+        return count;
     }
 }

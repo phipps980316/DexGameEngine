@@ -2,7 +2,6 @@ package Entities;
 
 import Models.TexturedModel;
 import RenderEngine.DisplayManager;
-import Terrains.Terrain;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -23,7 +22,7 @@ public class Player extends Entity{
         super(model, position, rotation, scale);
     }
 
-    public void move(Terrain terrain){
+    /*public void move(){
         checkKeyboardInputs();
         super.changeRotation(0, currentTurnSpeed * DisplayManager.getFrameTime(), 0);
 
@@ -39,7 +38,7 @@ public class Player extends Entity{
             isInAir = false;
             super.getPosition().y = terrainHeight;
         }
-    }
+    }*/
 
     private void jump(){
         if(!isInAir){

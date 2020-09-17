@@ -1,40 +1,75 @@
 package Beta;
 
-import Models.ModelData;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cube {
-    private ArrayList<Face> faces;
+    //private ArrayList<Face> faces;
+    private HashMap<FaceOption, Face> faces;
 
-    private float[] vertices;
-    private float[] textures;
-    private float[] normals;
-    private int[] indices;
+    private Point3D worldPosition;
 
-    public Cube(FaceOption[] faceOptions){
-        faces = new ArrayList<>();
+    private ArrayList<Point3D> allVertices;
+    private ArrayList<Point2D> allTextures;
+    private ArrayList<Point3D> allNormals;
+
+
+
+    public Cube(ArrayList<FaceOption> faceOptions, int posX, int posY, int posZ){
+        faces = new HashMap<FaceOption, Face>();
         for (FaceOption faceOption : faceOptions) {
-            faces.add(new Face(faceOption));
+            faces.put(faceOption, new Face(faceOption));
         }
-        vertices = new float[faceOptions.length*12];
-        textures = new float[faceOptions.length*8];
-        normals = new float[faceOptions.length*12];
-        indices = new int[faceOptions.length*6];
+        allVertices = new ArrayList<>();
+        allTextures = new ArrayList<>();
+        allNormals = new ArrayList<>();
+        worldPosition = new Point3D(posX, posY, posZ);
     }
 
-    public ModelData getRenderData() {
+    public void removeFace(FaceOption faceOption){
+        faces.remove(faceOption);
+    }
+
+    public void constructCube(){
+        for (Map.Entry<FaceOption, Face> entry : faces.entrySet()){
+            Face face = entry.getValue();
+            for(int j = 0; j < face.getVertices().size(); j++){
+                Vertex vertex = face.getVertices().get(j);
+                Point3D vertexLocalPosition = vertex.getPosition();
+                Point3D vertexWorldPosition = new Point3D(vertexLocalPosition.x + worldPosition.x, vertexLocalPosition.y + worldPosition.y, vertexLocalPosition.z + worldPosition.z);
+                allVertices.add(vertexWorldPosition);
+                allTextures.add(vertex.getTexture());
+                allNormals.add(vertex.getNormal());
+            }
+        }
+    }
+
+    public ArrayList<Point3D> getAllVertices() {
+        return allVertices;
+    }
+
+    public ArrayList<Point2D> getAllTextures() {
+        return allTextures;
+    }
+
+    public ArrayList<Point3D> getAllNormals() {
+        return allNormals;
+    }
+
+    /*public ModelData getRenderData() {
         ArrayList<Point3D> allVertices = new ArrayList<>();
         ArrayList<Point2D> allTextures = new ArrayList<>();
         ArrayList<Point3D> allNormals = new ArrayList<>();
-        ArrayList<Integer> allIndices = new ArrayList<>();
 
-        for (int i = 0; i < faces.size(); i++) {
-            Face face = faces.get(i);
-            allVertices.addAll(face.getVertices());
-            allTextures.addAll(face.getTextures());
-            allNormals.addAll(face.getNormals());
-            allIndices.addAll(face.getIndices(i));
+        for (Map.Entry<FaceOption, Face> entry : faces.entrySet()){
+            Face face = entry.getValue();
+            for(int j = 0; j < face.getVertices().size(); j++){
+                Vertex vertex = face.getVertices().get(j);
+                allVertices.add(vertex.getPosition());
+                allTextures.add(vertex.getTexture());
+                allNormals.add(vertex.getNormal());
+            }
         }
 
         for (int i = 0; i < allVertices.size(); i++) {
@@ -54,12 +89,9 @@ public class Cube {
 
         }
 
-        for (int i = 0; i < allIndices.size(); i++){
-            this.indices[i] = allIndices.get(i);
-        }
+        int count = allVertices.size();
+        return new ModelData(this.vertices, this.textures, this.normals, count);
 
-        return new ModelData(this.vertices, this.textures, this.normals, this.indices, 0);
-
-    }
+    }*/
 
 }

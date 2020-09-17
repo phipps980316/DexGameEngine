@@ -5,8 +5,6 @@ import Entities.Entity;
 import Entities.Light;
 import Models.TexturedModel;
 import Shaders.EntityShader;
-import Shaders.TerrainShader;
-import Terrains.Terrain;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
@@ -29,19 +27,14 @@ public class RenderManager {
     private EntityShader entityShader = new EntityShader();
     private EntityRenderer entityRenderer;
 
-    private TerrainShader terrainShader = new TerrainShader();
-    private TerrainRenderer terrainRenderer;
-
     private SkyBoxRenderer skyBoxRenderer;
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
-    private List<Terrain> terrains = new ArrayList<>();
 
     public RenderManager(ModelLoader loader){
         enableCulling();
         createProjectionMatrix();
         entityRenderer = new EntityRenderer(entityShader, projectionMatrix);
-        terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
         skyBoxRenderer = new SkyBoxRenderer(loader, projectionMatrix);
     }
 
@@ -79,16 +72,8 @@ public class RenderManager {
         entityRenderer.render(entities);
         entityShader.stop();
 
-        terrainShader.start();
-        terrainShader.loadSkyColour(skyColour);
-        terrainShader.loadLights(lights);
-        terrainShader.loadViewMatrix(camera);
-        terrainRenderer.render(terrains);
-        terrainShader.stop();
-
         skyBoxRenderer.render(camera, skyColour);
 
-        terrains.clear();
         entities.clear();
     }
 
@@ -101,9 +86,6 @@ public class RenderManager {
         GL11.glDisable(GL11.GL_CULL_FACE);
     }
 
-    public void processTerrain(Terrain terrain){
-        terrains.add(terrain);
-    }
 
     public void processEntity(Entity entity){
         TexturedModel entityModel = entity.getModel();
@@ -120,6 +102,5 @@ public class RenderManager {
 
     public void cleanUp(){
         entityShader.cleanUp();
-        terrainShader.cleanUp();
     }
 }

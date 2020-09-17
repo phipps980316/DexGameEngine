@@ -34,8 +34,17 @@ public class ModelLoader {
         return new RawModel(vaoID, indices.length);
     }
 
+    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int vertexCount){
+        int vaoID = createVAO();
+        storeDataInAttributeList(0, 3, positions);
+        storeDataInAttributeList(1, 2, textureCoords);
+        storeDataInAttributeList(2, 3, normals);
+        unbindVAO();
+        return new RawModel(vaoID, vertexCount);
+    }
+
     public RawModel loadToVAO(ModelData modelData){
-        return loadToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getIndices());
+        return loadToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getCount());
     }
 
     public RawModel loadToVAO(float[] positions, int dimensions){
