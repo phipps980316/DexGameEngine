@@ -7,19 +7,21 @@ import java.util.Map;
 public class Cube {
     //private ArrayList<Face> faces;
     private HashMap<FaceOption, Face> faces;
-
-    private Point3D worldPosition;
+    private int faceCount;
 
     private ArrayList<Point3D> allVertices;
     private ArrayList<Point2D> allTextures;
     private ArrayList<Point3D> allNormals;
+    private Point3D worldPosition;
 
 
 
     public Cube(ArrayList<FaceOption> faceOptions, int posX, int posY, int posZ){
         faces = new HashMap<FaceOption, Face>();
+        faceCount = 0;
         for (FaceOption faceOption : faceOptions) {
             faces.put(faceOption, new Face(faceOption));
+            faceCount++;
         }
         allVertices = new ArrayList<>();
         allTextures = new ArrayList<>();
@@ -29,6 +31,7 @@ public class Cube {
 
     public void removeFace(FaceOption faceOption){
         faces.remove(faceOption);
+        faceCount--;
     }
 
     public void constructCube(){
@@ -55,6 +58,10 @@ public class Cube {
 
     public ArrayList<Point3D> getAllNormals() {
         return allNormals;
+    }
+
+    public int getFaceCount() {
+        return faceCount;
     }
 
     /*public ModelData getRenderData() {

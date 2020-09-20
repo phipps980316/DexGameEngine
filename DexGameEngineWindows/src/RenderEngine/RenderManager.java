@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 public class RenderManager {
-    private static final float FOV = 70;
+    private static final float FOV = 75;
     private static final float NEAR_PLANE = 0.1f;
-    private static final float FAR_PLANE = 1000f;
+    private static final float FAR_PLANE = 250f;
 
-    private static final Vector3f skyColour = new Vector3f(0.2f,0.2f,0.2f);
+    private static final Vector3f skyColour = new Vector3f(0.2f,0.2f,0.4f);
 
     private Matrix4f projectionMatrix;
 
@@ -35,7 +35,7 @@ public class RenderManager {
         enableCulling();
         createProjectionMatrix();
         entityRenderer = new EntityRenderer(entityShader, projectionMatrix);
-        skyBoxRenderer = new SkyBoxRenderer(loader, projectionMatrix);
+        //skyBoxRenderer = new SkyBoxRenderer(loader, projectionMatrix);
     }
 
     private void createProjectionMatrix(){
@@ -71,8 +71,6 @@ public class RenderManager {
         entityShader.loadViewMatrix(camera);
         entityRenderer.render(entities);
         entityShader.stop();
-
-        skyBoxRenderer.render(camera, skyColour);
 
         entities.clear();
     }

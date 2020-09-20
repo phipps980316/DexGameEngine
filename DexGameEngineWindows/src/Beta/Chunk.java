@@ -3,125 +3,140 @@ package Beta;
 import Models.ModelData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Chunk {
     private Cube[][][] cubes;
-    private int size;
+    private int[][] heights;
     private int faceCount;
+    private ArrayList<Point3D> visibleCubes;
+    private final int size;
+    private final int scale;
+    private final int maxHeight;
 
-    public Chunk(int size){
-        cubes = new Cube[size][size][size*size];
-        this.size = size;
+    public Chunk(int size, int scale){
+        this.maxHeight = size*size;
+        cubes = new Cube[size][maxHeight][size];
+        heights = new int[size][size];
+        visibleCubes = new ArrayList<>();
         this.faceCount = 0;
+        this.size = size;
+        this.scale = scale;
+
+        for(int[] row : heights){
+            Arrays.fill(row, size - 1);
+        }
 
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                for(int z = 0; z < size*size; z++){
-                    System.out.println("Processing X: " + x + ", Y: " + y + ", Z: " + z);
-                    ArrayList<FaceOption> faceOptions = new ArrayList<>();
-                    if(x > 0){
-                        if(cubes[x - 1][y][z] == null) {
-                            faceOptions.add(FaceOption.LEFT);
-                            faceCount++;
-                        }
-                        else {
-                            cubes[x-1][y][z].removeFace(FaceOption.RIGHT);
-                            faceCount--;
-                        }
-                    } else {
-                        faceOptions.add(FaceOption.LEFT);
-                        faceCount++;
+                for(int z = 0; z < size; z++){
+                    if(heights[x][z] == y){
+                        ArrayList<FaceOption> faceOptions = calculateFaces(x,y,z);
+                        cubes[x][y][z] = new Cube(faceOptions, x, y, z);
+                        visibleCubes.add(new Point3D(x, y, z));
                     }
-
-                    if(x < size - 2){
-                        if(cubes[x + 1][y][z] == null) {
-                            faceOptions.add(FaceOption.RIGHT);
-                            faceCount++;
-                        }
-                        else {
-                            cubes[x+1][y][z].removeFace(FaceOption.LEFT);
-                            faceCount--;
-                        }
-                    } else {
-                        faceOptions.add(FaceOption.RIGHT);
-                        faceCount++;
-                    }
-
-                    if(y > 0){
-                        if(cubes[x][y - 1][z] == null) {
-                            faceOptions.add(FaceOption.BOTTOM);
-                            faceCount++;
-                        }
-                        else {
-                            cubes[x][y-1][z].removeFace(FaceOption.TOP);
-                            faceCount--;
-                        }
-                    } else {
-                        faceOptions.add(FaceOption.BOTTOM);
-                        faceCount++;
-                    }
-
-                    if(y < size - 2){
-                        if(cubes[x][y + 1][z] == null) {
-                            faceOptions.add(FaceOption.TOP);
-                            faceCount++;
-                        }
-                        else {
-                            cubes[x][y + 1][z].removeFace(FaceOption.BOTTOM);
-                            faceCount--;
-                        }
-                    } else {
-                        faceOptions.add(FaceOption.TOP);
-                        faceCount++;
-                    }
-
-                    if(z > 0){
-                        if(cubes[x][y][z - 1] == null) {
-                            faceOptions.add(FaceOption.FRONT);
-                            faceCount++;
-                        }
-                        else {
-                            cubes[x][y][z - 1].removeFace(FaceOption.BACK);
-                            faceCount--;
-                        }
-                    } else {
-                        faceOptions.add(FaceOption.FRONT);
-                        faceCount++;
-                    }
-
-                    if(z < size - 2){
-                        if(cubes[x][y][z + 1] == null) {
-                            faceOptions.add(FaceOption.BACK);
-                            faceCount++;
-                        }
-                        else {
-                            cubes[x][y][z+1].removeFace(FaceOption.FRONT);
-                            faceCount--;
-                        }
-                    } else {
-                        faceOptions.add(FaceOption.BACK);
-                        faceCount++;
-                    }
-
-                    cubes[x][y][z] = new Cube(faceOptions, x, y, z);
                 }
             }
         }
     }
 
-    public ModelData getRenderData() {
+    private ArrayList<FaceOption> calculateFaces(int x, int y, int z){
+        ArrayList<FaceOption> faceOptions = new ArrayList<>();
+        if(x > 0){
+            if(cubes[x-1][y][z] == null) {
+                addFace(faceOptions, FaceOption.LEFT);
+            }
+            else {
+                removeFace(cubes[x-1][y][z], FaceOption.RIGHT);
+            }
+        } else {
+            addFace(faceOptions, FaceOption.LEFT);
+        }
+
+        if(x < size - 2){
+            if(cubes[x + 1][y][z] == null) {
+                addFace(faceOptions, FaceOption.RIGHT);
+            }
+            else {
+                removeFace(cubes[x+1][y][z], FaceOption.LEFT);
+            }
+        } else {
+            addFace(faceOptions, FaceOption.RIGHT);
+        }
+
+        if(y > 0){
+            if(cubes[x][y - 1][z] == null) {
+                addFace(faceOptions, FaceOption.BOTTOM);
+            }
+            else {
+                removeFace(cubes[x][y-1][z], FaceOption.TOP);
+            }
+        } else {
+            addFace(faceOptions, FaceOption.BOTTOM);
+        }
+
+        if(y < size - 2){
+            if(cubes[x][y + 1][z] == null) {
+                addFace(faceOptions, FaceOption.TOP);
+            }
+            else {
+                removeFace(cubes[x][y+1][z], FaceOption.BOTTOM);
+            }
+        } else {
+            addFace(faceOptions, FaceOption.TOP);
+        }
+
+        if(z > 0){
+            if(cubes[x][y][z-1] == null) {
+                addFace(faceOptions, FaceOption.FRONT);
+            }
+            else {
+                removeFace(cubes[x][y][z-1], FaceOption.BACK);
+            }
+        } else {
+            addFace(faceOptions, FaceOption.FRONT);
+        }
+
+        if(z < size - 2){
+            if(cubes[x][y][z+1] == null) {
+                addFace(faceOptions, FaceOption.BACK);
+            }
+            else {
+                removeFace(cubes[x][y][z+1], FaceOption.FRONT);
+            }
+        } else {
+            addFace(faceOptions, FaceOption.BACK);
+        }
+        return faceOptions;
+    }
+
+    private void addFace(ArrayList<FaceOption> faceOptions, FaceOption faceOption){
+        faceOptions.add(faceOption);
+        faceCount++;
+    }
+
+    private void removeFace(Cube cube, FaceOption faceOption){
+        cube.removeFace(faceOption);
+        faceCount--;
+
+    }
+
+    /*public ModelData getRenderData() {
         float[] vertices = new float[faceCount*18];
         float[] textures = new float[faceCount*12];
         float[] normals = new float[faceCount*18];
 
         int vertexCount = 0;
 
+        int cubesProcessed = 0;
+
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 for (int z = 0; z < size; z++) {
                     Cube cube = cubes[x][y][z];
+                    if(cube.getFaceCount() > 0){
                     cube.constructCube();
-                    for(int i = 0; i < cube.getAllVertices().size(); i++){
+                    for (int i = 0; i < cube.getAllVertices().size(); i++) {
                         Point3D vertex = cube.getAllVertices().get(i);
                         vertices[vertexCount * 3] = vertex.x;
                         vertices[vertexCount * 3 + 1] = vertex.y;
@@ -138,10 +153,58 @@ public class Chunk {
 
                         vertexCount++;
                     }
+                    cubesProcessed++;
                 }
             }
+            }
         }
+        System.out.println(cubesProcessed);
+        return new ModelData(vertices, textures, normals, vertexCount);
+    }*/
 
+    public int getHeight(float x, float z){
+        int cubeX = (int) ((x/scale) % size);
+        int cubeZ = (int) ((z/scale) % size);
+        return (heights[cubeX][cubeZ]+1)*scale;
+    }
+
+    public ModelData getRenderData() {
+        float[] vertices = new float[faceCount*18];
+        float[] textures = new float[faceCount*12];
+        float[] normals = new float[faceCount*18];
+
+        int vertexCount = 0;
+
+        int cubesProcessed = 0;
+
+        for (int i = 0; i < visibleCubes.size(); i++) {
+            Point3D pos = visibleCubes.get(i);
+            Cube cube = cubes[(int)pos.x][(int)pos.y][(int)pos.z];
+            if(cube.getFaceCount() > 0){
+                cube.constructCube();
+                for (int j = 0; j < cube.getAllVertices().size(); j++) {
+                    Point3D vertex = cube.getAllVertices().get(j);
+                    vertices[vertexCount * 3] = vertex.x;
+                    vertices[vertexCount * 3 + 1] = vertex.y;
+                    vertices[vertexCount * 3 + 2] = vertex.z;
+
+                    Point2D texture = cube.getAllTextures().get(j);
+                    textures[vertexCount * 2] = texture.x;
+                    textures[vertexCount * 2 + 1] = texture.y;
+
+                    Point3D normal = cube.getAllNormals().get(j);
+                    normals[vertexCount * 3] = normal.x;
+                    normals[vertexCount * 3 + 1] = normal.y;
+                    normals[vertexCount * 3 + 2] = normal.z;
+
+                    vertexCount++;
+                }
+            }
+            cubesProcessed++;
+        }
+        System.out.println(cubesProcessed);
         return new ModelData(vertices, textures, normals, vertexCount);
     }
+
+
 }

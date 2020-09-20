@@ -3,6 +3,7 @@ package EngineTest;
 import Beta.Chunk;
 import Beta.Cube;
 import Beta.FaceOption;
+import Beta.Region;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
@@ -26,39 +27,32 @@ public class MainGameLoop {
         DisplayManager.createDisplay();
         ModelLoader modelLoader = new ModelLoader();
 
-        Light light = new Light(new Vector3f(10, 10, 10), new Vector3f(0.4f,0.4f,0.4f));
+        int chunkSize = 16;
+        int regionSize = 16;
+        int scale = 10;
+        int center = ((regionSize * chunkSize)/2)*scale;
+
+        Light light = new Light(new Vector3f(center, 10000, center), new Vector3f(0.4f,0.4f,0.4f));
         List<Light> lights = new ArrayList<>();
         lights.add(light);
 
-        ArrayList<FaceOption> faceOptions = new ArrayList<>();
-        faceOptions.add(FaceOption.TOP);
-        faceOptions.add(FaceOption.LEFT);
-        faceOptions.add(FaceOption.RIGHT);
-        faceOptions.add(FaceOption.BOTTOM);
-        faceOptions.add(FaceOption.FRONT);
-        faceOptions.add(FaceOption.BACK);
+        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("cube"),1,1, true, false);
+        Region region = new Region(modelLoader, texture);
+        List<Entity> entities = region.getChunkEntities();
 
-        int chunkSize = 16;
-        Chunk chunk = new Chunk(chunkSize);
-        ModelData cubeData = chunk.getRenderData();
-        ModelTexture cubeTexture = new ModelTexture(modelLoader.loadTexture("cube1"),1,1, true, false);
-        assert cubeData != null;
-        TexturedModel cube = new TexturedModel(modelLoader.loadToVAO(cubeData), cubeTexture);
-
-        List<Entity> entities = new ArrayList<>();
-
-        entities.add(new Entity(cube, new Vector3f(0,0,0), new Vector3f(0,0,0), 1));
-
-        Player player = new Player(cube, new Vector3f(chunkSize/2, chunkSize, chunkSize/2), new Vector3f(0,0,0), 1);
+        TexturedModel playerModel = new TexturedModel(modelLoader.loadToVAO(new ModelData(new float[]{}, new float[]{}, new float[]{}, 0)), texture);
+        Player player = new Player(playerModel, new Vector3f(0, chunkSize*scale, 0), new Vector3f(0,0,0), 1);
         Camera camera = new Camera(player);
 
         RenderManager renderManager = new RenderManager(modelLoader);
 
         while(!Display.isCloseRequested()){
             camera.move();
+            player.move(camera.getAngle(), region);
             for(Entity entity:entities){
                 renderManager.processEntity(entity);
             }
+            renderManager.processEntity(player);
             renderManager.render(lights, camera);
             DisplayManager.updateDisplay();
         }
