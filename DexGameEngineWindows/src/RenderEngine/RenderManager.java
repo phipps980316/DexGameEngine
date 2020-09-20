@@ -24,18 +24,16 @@ public class RenderManager {
 
     private Matrix4f projectionMatrix;
 
-    private EntityShader entityShader = new EntityShader();
-    private EntityRenderer entityRenderer;
+    private final EntityShader entityShader;
+    private final EntityRenderer entityRenderer;
 
-    private SkyBoxRenderer skyBoxRenderer;
+    private final Map<TexturedModel, List<Entity>> entities = new HashMap<>();
 
-    private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
-
-    public RenderManager(ModelLoader loader){
+    public RenderManager(){
         enableCulling();
         createProjectionMatrix();
+        entityShader = new EntityShader();
         entityRenderer = new EntityRenderer(entityShader, projectionMatrix);
-        //skyBoxRenderer = new SkyBoxRenderer(loader, projectionMatrix);
     }
 
     private void createProjectionMatrix(){
@@ -51,10 +49,6 @@ public class RenderManager {
         projectionMatrix.m23 = -1;
         projectionMatrix.m32 = -((2*NEAR_PLANE*FAR_PLANE) / frustumLength);
         projectionMatrix.m33 = 0;
-    }
-
-    public Matrix4f getProjectionMatrix() {
-        return projectionMatrix;
     }
 
     public void prepare(){

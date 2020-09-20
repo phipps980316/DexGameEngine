@@ -1,5 +1,5 @@
 package Beta;
 
 public enum FaceOption {
-    TOP, BOTTOM, FRONT, BACK, LEFT, RIGHT;
+    TOP, BOTTOM, FRONT, BACK, LEFT, RIGHT
 }

@@ -3,8 +3,7 @@ package Beta;
 import java.util.ArrayList;
 
 public class Face {
-    private ArrayList<Vertex> vertices;
-    private Point3D normal;
+    private final ArrayList<Vertex> vertices;
 
     private static final Point3D V1 = new Point3D(0, 1, 1);
     private static final Point3D V2 = new Point3D(1, 1, 1);
@@ -22,6 +21,7 @@ public class Face {
 
     public Face(FaceOption option){
         vertices = new ArrayList<>();
+        Point3D normal;
         switch (option) {
             case TOP -> {
                 normal = new Point3D(0, 1, 0);

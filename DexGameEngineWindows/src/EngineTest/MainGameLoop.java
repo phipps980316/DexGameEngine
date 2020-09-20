@@ -1,8 +1,5 @@
 package EngineTest;
 
-import Beta.Chunk;
-import Beta.Cube;
-import Beta.FaceOption;
 import Beta.Region;
 import Entities.Camera;
 import Entities.Entity;
@@ -37,14 +34,14 @@ public class MainGameLoop {
         lights.add(light);
 
         ModelTexture texture = new ModelTexture(modelLoader.loadTexture("cube"),1,1, true, false);
-        Region region = new Region(modelLoader, texture);
+        Region region = new Region(chunkSize, regionSize, scale, modelLoader, texture);
         List<Entity> entities = region.getChunkEntities();
 
         TexturedModel playerModel = new TexturedModel(modelLoader.loadToVAO(new ModelData(new float[]{}, new float[]{}, new float[]{}, 0)), texture);
         Player player = new Player(playerModel, new Vector3f(0, chunkSize*scale, 0), new Vector3f(0,0,0), 1);
         Camera camera = new Camera(player);
 
-        RenderManager renderManager = new RenderManager(modelLoader);
+        RenderManager renderManager = new RenderManager();
 
         while(!Display.isCloseRequested()){
             camera.move();

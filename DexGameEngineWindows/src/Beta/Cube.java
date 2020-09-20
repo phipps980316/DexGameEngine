@@ -6,18 +6,16 @@ import java.util.Map;
 
 public class Cube {
     //private ArrayList<Face> faces;
-    private HashMap<FaceOption, Face> faces;
+    private final HashMap<FaceOption, Face> faces;
     private int faceCount;
 
-    private ArrayList<Point3D> allVertices;
-    private ArrayList<Point2D> allTextures;
-    private ArrayList<Point3D> allNormals;
-    private Point3D worldPosition;
-
-
+    private final ArrayList<Point3D> allVertices;
+    private final ArrayList<Point2D> allTextures;
+    private final ArrayList<Point3D> allNormals;
+    private final Point3D worldPosition;
 
     public Cube(ArrayList<FaceOption> faceOptions, int posX, int posY, int posZ){
-        faces = new HashMap<FaceOption, Face>();
+        faces = new HashMap<>();
         faceCount = 0;
         for (FaceOption faceOption : faceOptions) {
             faces.put(faceOption, new Face(faceOption));

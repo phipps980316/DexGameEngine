@@ -18,14 +18,6 @@ public class Entity {
         this.scale = scale;
     }
 
-    public Entity(TexturedModel model, Vector3f position, Vector3f rotation, float scale, int textureIndex) {
-        this.model = model;
-        this.position = position;
-        this.rotation = rotation;
-        this.scale = scale;
-        this.textureIndex = textureIndex;
-    }
-
     public void changePosition(float dx, float dy, float dz){
         this.position.x+=dx;
         this.position.y+=dy;

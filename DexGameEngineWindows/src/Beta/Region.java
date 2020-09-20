@@ -9,11 +9,11 @@ import org.lwjgl.util.vector.Vector3f;
 import java.util.ArrayList;
 
 public class Region {
-    private Chunk[][] chunks;
-    private final int chunkSize = 16;
-    private final int regionSize = 16;
-    private final int scale = 10;
-    private ArrayList<Entity> chunkEntities;
+    private final Chunk[][] chunks;
+    private final int chunkSize;
+    private final int regionSize;
+    private final int scale;
+    private final ArrayList<Entity> chunkEntities;
 
     public ArrayList<Entity> getChunkEntities() {
         return chunkEntities;
@@ -28,7 +28,10 @@ public class Region {
         return chunkSize*scale; //default out of bound height
     }
 
-    public Region(ModelLoader modelLoader, ModelTexture texture){
+    public Region(int chunkSize, int regionSize, int scale, ModelLoader modelLoader, ModelTexture texture){
+        this.chunkSize = chunkSize;
+        this.regionSize = regionSize;
+        this.scale = scale;
         chunks = new Chunk[regionSize][regionSize];
         chunkEntities = new ArrayList<>();
 
