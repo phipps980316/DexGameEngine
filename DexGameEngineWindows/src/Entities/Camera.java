@@ -21,7 +21,7 @@ public class Camera {
         calculatePitch();
         calculateAngle();
         updateCameraPosition();
-        yaw = 180 - (player.getRotation().y + angle);
+        yaw = 180 - (player.getRotation().y);
     }
 
     public Vector3f getPosition() {
@@ -60,6 +60,6 @@ public class Camera {
     private void updateCameraPosition(){
         this.position.x = player.getPosition().x;
         this.position.y = player.getPosition().y + 10;
-        this.position.z = player.getPosition().z;
+        this.position.z = player.getPosition().z - 100;
     }
 }

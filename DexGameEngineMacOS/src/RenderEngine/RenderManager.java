@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RenderManager {
-    private static final float FOV = 75;
+    private static final float FOV = 90;
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 250f;
 
@@ -24,16 +24,23 @@ public class RenderManager {
 
     private Matrix4f projectionMatrix;
 
-    private final EntityShader entityShader;
-    private final EntityRenderer entityRenderer;
+    private final EntityShader cubeShader;
+    private final CubeRenderer cubeRenderer;
 
-    private final Map<TexturedModel, List<Entity>> entities = new HashMap<>();
+    private final EntityShader modelShader;
+    private final ModelRenderer modelRenderer;
+
+    private final Map<TexturedModel, List<Entity>> cubes = new HashMap<>();
+    private final Map<TexturedModel, List<Entity>> models = new HashMap<>();
 
     public RenderManager(){
         enableCulling();
         createProjectionMatrix();
-        entityShader = new EntityShader();
-        entityRenderer = new EntityRenderer(entityShader, projectionMatrix);
+        cubeShader = new EntityShader();
+        cubeRenderer = new CubeRenderer(cubeShader, projectionMatrix);
+
+        modelShader = new EntityShader();
+        modelRenderer = new ModelRenderer(modelShader, projectionMatrix);
     }
 
     private void createProjectionMatrix(){
@@ -59,14 +66,22 @@ public class RenderManager {
 
     public void render(List<Light> lights, Camera camera){
         prepare();
-        entityShader.start();
-        entityShader.loadSkyColour(skyColour);
-        entityShader.loadLights(lights);
-        entityShader.loadViewMatrix(camera);
-        entityRenderer.render(entities);
-        entityShader.stop();
+        cubeShader.start();
+        cubeShader.loadSkyColour(skyColour);
+        cubeShader.loadLights(lights);
+        cubeShader.loadViewMatrix(camera);
+        cubeRenderer.render(cubes);
+        cubeShader.stop();
 
-        entities.clear();
+        modelShader.start();
+        modelShader.loadSkyColour(skyColour);
+        modelShader.loadLights(lights);
+        modelShader.loadViewMatrix(camera);
+        modelRenderer.render(models);
+        modelShader.stop();
+
+        cubes.clear();
+        models.clear();
     }
 
     public static void enableCulling(){
@@ -79,20 +94,34 @@ public class RenderManager {
     }
 
 
-    public void processEntity(Entity entity){
-        TexturedModel entityModel = entity.getModel();
-        List<Entity> batch = entities.get(entityModel);
+    public void processCube(Entity entity){
+        TexturedModel cube = entity.getModel();
+        List<Entity> batch = cubes.get(cube);
         if(batch != null) {
             batch.add(entity);
         }
         else {
             List<Entity> newBatch = new ArrayList<>();
             newBatch.add(entity);
-            entities.put(entityModel, newBatch);
+            cubes.put(cube, newBatch);
+        }
+    }
+
+    public void processModel(Entity entity){
+        TexturedModel model = entity.getModel();
+        List<Entity> batch = models.get(model);
+        if(batch != null) {
+            batch.add(entity);
+        }
+        else {
+            List<Entity> newBatch = new ArrayList<>();
+            newBatch.add(entity);
+            models.put(model, newBatch);
         }
     }
 
     public void cleanUp(){
-        entityShader.cleanUp();
+        cubeShader.cleanUp();
+        modelShader.cleanUp();
     }
 }

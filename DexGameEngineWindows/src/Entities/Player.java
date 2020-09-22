@@ -22,9 +22,11 @@ public class Player extends Entity{
 
     public void move(float angle, Region region){
         checkKeyboardInputs();
-        super.setRotation(new Vector3f(0, angle, 0));
 
-        float yaw = 180 - (getRotation().y + angle);
+        super.setRotation(new Vector3f(0, angle, 0));
+        System.out.println(angle);
+
+        float yaw = 180 - getRotation().y;
 
         float frameTime = DisplayManager.getFrameTime();
         currentYSpeed += GRAVITY * frameTime;
@@ -88,7 +90,7 @@ public class Player extends Entity{
             super.getPosition().y = terrainHeight;
         }
 
-        int terrainWidth = region.getChunkSize() * region.getRegionSize() * region.getScale();
+        int terrainWidth = region.getRegionSize();
         if(super.getPosition().x>terrainWidth){
             super.getPosition().x = terrainWidth;
         } else if(super.getPosition().x<0){

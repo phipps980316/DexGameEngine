@@ -24,7 +24,7 @@ public class ModelLoader {
     private final List<Integer> vbos = new ArrayList<>();
     private final List<Integer> textures = new ArrayList<>();
 
-    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices){
+    public RawModel loadModelToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices){
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
         storeDataInAttributeList(0, 3, positions);
@@ -34,7 +34,11 @@ public class ModelLoader {
         return new RawModel(vaoID, indices.length);
     }
 
-    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int vertexCount){
+    public RawModel loadModelToVAO(ModelData modelData){
+        return loadModelToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getIndices());
+    }
+
+    public RawModel loadCubeToVAO(float[] positions, float[] textureCoords, float[] normals, int vertexCount){
         int vaoID = createVAO();
         storeDataInAttributeList(0, 3, positions);
         storeDataInAttributeList(1, 2, textureCoords);
@@ -43,8 +47,8 @@ public class ModelLoader {
         return new RawModel(vaoID, vertexCount);
     }
 
-    public RawModel loadToVAO(ModelData modelData){
-        return loadToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getCount());
+    public RawModel loadCubeToVAO(ModelData modelData){
+        return loadCubeToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getCount());
     }
 
     public RawModel loadToVAO(float[] positions, int dimensions){

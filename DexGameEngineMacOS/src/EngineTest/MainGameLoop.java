@@ -1,10 +1,12 @@
 package EngineTest;
 
 import Beta.Region;
+import Beta.WorldSettings;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
 import Entities.Player;
+import IO.ModelFileLoader;
 import Models.ModelData;
 import Models.TexturedModel;
 import RenderEngine.*;
@@ -24,32 +26,35 @@ public class MainGameLoop {
         DisplayManager.createDisplay();
         ModelLoader modelLoader = new ModelLoader();
 
-        int chunkSize = 16;
-        int regionSize = 16;
-        int scale = 10;
+        int chunkSize = WorldSettings.CHUNK_SIZE;
+        int scale = WorldSettings.CUBE_SIZE;
+        int regionSize = WorldSettings.REGION_SIZE;
         int center = ((regionSize * chunkSize)/2)*scale;
 
         Light light = new Light(new Vector3f(center, 10000, center), new Vector3f(0.4f,0.4f,0.4f));
         List<Light> lights = new ArrayList<>();
         lights.add(light);
 
-        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("cube"),1,1, true, false);
-        Region region = new Region(chunkSize, regionSize, scale, modelLoader, texture);
+        ModelTexture texture = new ModelTexture(modelLoader.loadTexture("cube"),1,1, false, false);
+
+        Region region = new Region(modelLoader, texture);
         List<Entity> entities = region.getChunkEntities();
 
-        TexturedModel playerModel = new TexturedModel(modelLoader.loadToVAO(new ModelData(new float[]{}, new float[]{}, new float[]{}, 0)), texture);
-        Player player = new Player(playerModel, new Vector3f(0, chunkSize*scale, 0), new Vector3f(0,0,0), 1);
+        ModelData playerData = ModelFileLoader.loadModel("player");
+        ModelTexture playerTexture = new ModelTexture(modelLoader.loadTexture("player"),1,1, false, false);
+        assert playerData != null;
+        TexturedModel playerModel = new TexturedModel(modelLoader.loadModelToVAO(playerData), playerTexture);
+        Player player = new Player(playerModel, new Vector3f(0,170,0), new Vector3f(0,0,0), 1);
         Camera camera = new Camera(player);
 
         RenderManager renderManager = new RenderManager();
-
         while(!Display.isCloseRequested()){
             camera.move();
             player.move(camera.getAngle(), region);
             for(Entity entity:entities){
-                renderManager.processEntity(entity);
+                renderManager.processCube(entity);
             }
-            renderManager.processEntity(player);
+            renderManager.processModel(player);
             renderManager.render(lights, camera);
             DisplayManager.updateDisplay();
         }

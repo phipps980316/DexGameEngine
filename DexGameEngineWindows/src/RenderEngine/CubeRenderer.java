@@ -14,11 +14,11 @@ import org.lwjgl.util.vector.Matrix4f;
 import java.util.List;
 import java.util.Map;
 
-public class EntityRenderer {
+public class CubeRenderer {
 
     private EntityShader shader;
 
-    public EntityRenderer(EntityShader shader, Matrix4f projectionMatrix){
+    public CubeRenderer(EntityShader shader, Matrix4f projectionMatrix){
         this.shader = shader;
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
@@ -32,7 +32,6 @@ public class EntityRenderer {
             for(Entity entity:batch){
                 prepareInstance(entity);
                 GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getModel().getVertexCount());
-                //GL11.glDrawElements(GL11.GL_TRIANGLES, model.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
             }
             unbindTexturedModel();
         }

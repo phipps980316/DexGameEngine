@@ -14,14 +14,15 @@ public class Chunk {
     private final int scale;
     private final int maxHeight;
 
-    public Chunk(int size, int scale){
+    public Chunk(){
+        this.size = WorldSettings.CHUNK_SIZE;
+        this.scale = WorldSettings.CUBE_SIZE;
         this.maxHeight = size*size;
+
         cubes = new Cube[size][maxHeight][size];
         heights = new int[size][size];
         visibleCubes = new ArrayList<>();
         this.faceCount = 0;
-        this.size = size;
-        this.scale = scale;
 
         for(int[] row : heights){
             Arrays.fill(row, size - 1);
@@ -138,7 +139,7 @@ public class Chunk {
         return (heights[cubeX][cubeZ]+1)*scale;
     }
 
-    public ModelData getRenderData() {
+    /*public ModelData getRenderData() {
         float[] vertices = new float[faceCount*18];
         float[] textures = new float[faceCount*12];
         float[] normals = new float[faceCount*18];
@@ -160,6 +161,39 @@ public class Chunk {
                     textures[vertexCount * 2 + 1] = texture.y;
 
                     Point3D normal = cube.getAllNormals().get(j);
+                    normals[vertexCount * 3] = normal.x;
+                    normals[vertexCount * 3 + 1] = normal.y;
+                    normals[vertexCount * 3 + 2] = normal.z;
+
+                    vertexCount++;
+                }
+            }
+        }
+        return new ModelData(vertices, textures, normals, vertexCount);
+    }*/
+
+    public ModelData getRenderData() {
+        float[] vertices = new float[faceCount*18];
+        float[] textures = new float[faceCount*12];
+        float[] normals = new float[faceCount*18];
+
+        int vertexCount = 0;
+
+        for (Point3D pos : visibleCubes) {
+            Cube cube = cubes[(int) pos.x][(int) pos.y][(int) pos.z];
+            if (cube.getFaceCount() > 0) {
+                CubeData cubeData = cube.constructCube();
+                for (int j = 0; j < cubeData.getAllVertices().size(); j++) {
+                    Point3D vertex = cubeData.getAllVertices().get(j);
+                    vertices[vertexCount * 3] = vertex.x;
+                    vertices[vertexCount * 3 + 1] = vertex.y;
+                    vertices[vertexCount * 3 + 2] = vertex.z;
+
+                    Point2D texture = cubeData.getAllTextures().get(j);
+                    textures[vertexCount * 2] = texture.x;
+                    textures[vertexCount * 2 + 1] = texture.y;
+
+                    Point3D normal = cubeData.getAllNormals().get(j);
                     normals[vertexCount * 3] = normal.x;
                     normals[vertexCount * 3 + 1] = normal.y;
                     normals[vertexCount * 3 + 2] = normal.z;
