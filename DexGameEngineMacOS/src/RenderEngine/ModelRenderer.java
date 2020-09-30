@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ModelRenderer {
 
-    private EntityShader shader;
+    private final EntityShader shader;
 
     public ModelRenderer(EntityShader shader, Matrix4f projectionMatrix){
         this.shader = shader;

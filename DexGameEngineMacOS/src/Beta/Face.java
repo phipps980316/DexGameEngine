@@ -28,16 +28,12 @@ public class Face {
                 vertices.add(new Vertex(V1, texTopLeft, normal));
                 vertices.add(new Vertex(V2, texTopRight, normal));
                 vertices.add(new Vertex(V3, texBottomRight, normal));
-                vertices.add(new Vertex(V1, texTopLeft, normal));
-                vertices.add(new Vertex(V3, texBottomRight, normal));
                 vertices.add(new Vertex(V4, texBottomLeft, normal));
             }
             case BOTTOM -> {
                 normal = new Point3D(0, -1, 0);
                 vertices.add(new Vertex(V5, texTopLeft, normal));
                 vertices.add(new Vertex(V6, texTopRight, normal));
-                vertices.add(new Vertex(V7, texBottomRight, normal));
-                vertices.add(new Vertex(V5, texTopLeft, normal));
                 vertices.add(new Vertex(V7, texBottomRight, normal));
                 vertices.add(new Vertex(V8, texBottomLeft, normal));
             }
@@ -46,16 +42,12 @@ public class Face {
                 vertices.add(new Vertex(V4, texTopLeft, normal));
                 vertices.add(new Vertex(V3, texTopRight, normal));
                 vertices.add(new Vertex(V6, texBottomRight, normal));
-                vertices.add(new Vertex(V4, texTopLeft, normal));
-                vertices.add(new Vertex(V6, texBottomRight, normal));
                 vertices.add(new Vertex(V5, texBottomLeft, normal));
             }
             case BACK -> {
                 normal = new Point3D(0, 0, 1);
                 vertices.add(new Vertex(V2, texTopLeft, normal));
                 vertices.add(new Vertex(V1, texTopRight, normal));
-                vertices.add(new Vertex(V8, texBottomRight, normal));
-                vertices.add(new Vertex(V2, texTopLeft, normal));
                 vertices.add(new Vertex(V8, texBottomRight, normal));
                 vertices.add(new Vertex(V7, texBottomLeft, normal));
             }
@@ -64,16 +56,12 @@ public class Face {
                 vertices.add(new Vertex(V1, texTopLeft, normal));
                 vertices.add(new Vertex(V4, texTopRight, normal));
                 vertices.add(new Vertex(V5, texBottomRight, normal));
-                vertices.add(new Vertex(V1, texTopLeft, normal));
-                vertices.add(new Vertex(V5, texBottomRight, normal));
                 vertices.add(new Vertex(V8, texBottomLeft, normal));
             }
             case RIGHT -> {
                 normal = new Point3D(1, 0, 0);
                 vertices.add(new Vertex(V3, texTopLeft, normal));
                 vertices.add(new Vertex(V2, texTopRight, normal));
-                vertices.add(new Vertex(V7, texBottomRight, normal));
-                vertices.add(new Vertex(V3, texTopLeft, normal));
                 vertices.add(new Vertex(V7, texBottomRight, normal));
                 vertices.add(new Vertex(V6, texBottomLeft, normal));
             }
@@ -82,5 +70,9 @@ public class Face {
 
     public ArrayList<Vertex> getVertices() {
         return vertices;
+    }
+
+    public int[] getIndices(int faceNumber){
+        return new int[]{(faceNumber * 4),1 + (faceNumber*4),2 + (faceNumber*4), (faceNumber * 4),2 + (faceNumber*4),3 + (faceNumber*4)};
     }
 }

@@ -1,13 +1,14 @@
 package Entities;
 
 import Beta.Region;
+import Beta.WorldSettings;
 import Models.TexturedModel;
 import RenderEngine.DisplayManager;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Player extends Entity{
-    private static final float RUN_SPEED = 20;
+    private static final float RUN_SPEED = 50;
     private static final float GRAVITY = -50;
     private static final float JUMP_POWER = 30;
 
@@ -24,7 +25,6 @@ public class Player extends Entity{
         checkKeyboardInputs();
 
         super.setRotation(new Vector3f(0, angle, 0));
-        System.out.println(angle);
 
         float yaw = 180 - getRotation().y;
 
@@ -75,15 +75,17 @@ public class Player extends Entity{
         }
 
         if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            if(!hasJumped){
-                currentYSpeed = JUMP_POWER;
-                hasJumped = true;
-            }
+            currentYSpeed = JUMP_POWER;
+            //if(!hasJumped){
+               // currentYSpeed = JUMP_POWER;
+               // hasJumped = true;
+            //}
         }
     }
 
     private void checkCollisionsWithTerrain(Region region){
-        int terrainHeight = region.heightAtPoint(getPosition().x, getPosition().z);
+        //int terrainHeight = region.heightAtPoint(getPosition().x, getPosition().z);
+        int terrainHeight = 0;
         if(super.getPosition().y<terrainHeight){
             currentYSpeed = 0;
             hasJumped = false;

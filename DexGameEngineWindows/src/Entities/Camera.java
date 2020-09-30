@@ -60,6 +60,6 @@ public class Camera {
     private void updateCameraPosition(){
         this.position.x = player.getPosition().x;
         this.position.y = player.getPosition().y + 10;
-        this.position.z = player.getPosition().z - 100;
+        this.position.z = player.getPosition().z;
     }
 }

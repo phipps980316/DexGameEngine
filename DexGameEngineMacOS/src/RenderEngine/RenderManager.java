@@ -18,26 +18,20 @@ import java.util.Map;
 public class RenderManager {
     private static final float FOV = 90;
     private static final float NEAR_PLANE = 0.1f;
-    private static final float FAR_PLANE = 250f;
+    private static final float FAR_PLANE = 10000f;
 
     private static final Vector3f skyColour = new Vector3f(0.2f,0.2f,0.4f);
 
     private Matrix4f projectionMatrix;
 
-    private final EntityShader cubeShader;
-    private final CubeRenderer cubeRenderer;
-
     private final EntityShader modelShader;
     private final ModelRenderer modelRenderer;
 
-    private final Map<TexturedModel, List<Entity>> cubes = new HashMap<>();
     private final Map<TexturedModel, List<Entity>> models = new HashMap<>();
 
     public RenderManager(){
         enableCulling();
         createProjectionMatrix();
-        cubeShader = new EntityShader();
-        cubeRenderer = new CubeRenderer(cubeShader, projectionMatrix);
 
         modelShader = new EntityShader();
         modelRenderer = new ModelRenderer(modelShader, projectionMatrix);
@@ -66,12 +60,6 @@ public class RenderManager {
 
     public void render(List<Light> lights, Camera camera){
         prepare();
-        cubeShader.start();
-        cubeShader.loadSkyColour(skyColour);
-        cubeShader.loadLights(lights);
-        cubeShader.loadViewMatrix(camera);
-        cubeRenderer.render(cubes);
-        cubeShader.stop();
 
         modelShader.start();
         modelShader.loadSkyColour(skyColour);
@@ -80,7 +68,6 @@ public class RenderManager {
         modelRenderer.render(models);
         modelShader.stop();
 
-        cubes.clear();
         models.clear();
     }
 
@@ -91,20 +78,6 @@ public class RenderManager {
 
     public static void disableCulling(){
         GL11.glDisable(GL11.GL_CULL_FACE);
-    }
-
-
-    public void processCube(Entity entity){
-        TexturedModel cube = entity.getModel();
-        List<Entity> batch = cubes.get(cube);
-        if(batch != null) {
-            batch.add(entity);
-        }
-        else {
-            List<Entity> newBatch = new ArrayList<>();
-            newBatch.add(entity);
-            cubes.put(cube, newBatch);
-        }
     }
 
     public void processModel(Entity entity){
@@ -121,7 +94,10 @@ public class RenderManager {
     }
 
     public void cleanUp(){
-        cubeShader.cleanUp();
         modelShader.cleanUp();
+    }
+
+    public Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
     }
 }

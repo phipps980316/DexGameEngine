@@ -38,19 +38,6 @@ public class ModelLoader {
         return loadModelToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getIndices());
     }
 
-    public RawModel loadCubeToVAO(float[] positions, float[] textureCoords, float[] normals, int vertexCount){
-        int vaoID = createVAO();
-        storeDataInAttributeList(0, 3, positions);
-        storeDataInAttributeList(1, 2, textureCoords);
-        storeDataInAttributeList(2, 3, normals);
-        unbindVAO();
-        return new RawModel(vaoID, vertexCount);
-    }
-
-    public RawModel loadCubeToVAO(ModelData modelData){
-        return loadCubeToVAO(modelData.getVertices(), modelData.getTextureCoords(), modelData.getNormals(), modelData.getCount());
-    }
-
     public RawModel loadToVAO(float[] positions, int dimensions){
         int vaoID = createVAO();
         this.storeDataInAttributeList(0, dimensions, positions);

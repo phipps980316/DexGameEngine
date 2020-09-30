@@ -19,13 +19,6 @@ public class ModelData implements Serializable {
         this.furthestPoint = furthestPoint;
     }
 
-    public ModelData(float[] vertices, float[] textureCoords, float[] normals, int count){
-        this.vertices = vertices;
-        this.textureCoords = textureCoords;
-        this.normals = normals;
-        this.count = count;
-    }
-
     public float[] getVertices(){
         return vertices;
     }

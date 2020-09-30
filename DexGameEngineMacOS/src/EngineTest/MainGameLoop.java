@@ -6,11 +6,11 @@ import Entities.Camera;
 import Entities.Entity;
 import Entities.Light;
 import Entities.Player;
-import IO.ModelFileLoader;
 import Models.ModelData;
 import Models.TexturedModel;
 import RenderEngine.*;
 import Textures.ModelTexture;
+import Toolbox.MousePicker;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -40,19 +40,24 @@ public class MainGameLoop {
         Region region = new Region(modelLoader, texture);
         List<Entity> entities = region.getChunkEntities();
 
-        ModelData playerData = ModelFileLoader.loadModel("player");
+        //ModelData playerData = ModelFileLoader.loadModel("player");
         ModelTexture playerTexture = new ModelTexture(modelLoader.loadTexture("player"),1,1, false, false);
-        assert playerData != null;
-        TexturedModel playerModel = new TexturedModel(modelLoader.loadModelToVAO(playerData), playerTexture);
-        Player player = new Player(playerModel, new Vector3f(0,170,0), new Vector3f(0,0,0), 1);
+        //assert playerData != null;
+        TexturedModel playerModel = new TexturedModel(modelLoader.loadModelToVAO(new ModelData(new float[]{}, new float[]{}, new float[]{}, new int[]{}, 0)), playerTexture);
+        Player player = new Player(playerModel, new Vector3f(0,0,0), new Vector3f(0,0,0), 1);
         Camera camera = new Camera(player);
 
         RenderManager renderManager = new RenderManager();
+        MousePicker mousePicker = new MousePicker(camera, renderManager.getProjectionMatrix());
+
         while(!Display.isCloseRequested()){
             camera.move();
             player.move(camera.getAngle(), region);
+            mousePicker.update();
+            System.out.println(mousePicker.getCurrentRay());
+
             for(Entity entity:entities){
-                renderManager.processCube(entity);
+                renderManager.processModel(entity);
             }
             renderManager.processModel(player);
             renderManager.render(lights, camera);

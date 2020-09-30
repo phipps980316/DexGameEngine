@@ -3,37 +3,29 @@ package Beta;
 import java.util.ArrayList;
 
 public class CubeData {
-    private ArrayList<Point3D> allVertices;
-    private ArrayList<Point2D> allTextures;
-    private ArrayList<Point3D> allNormals;
+    private final ArrayList<Vertex> allVertices;
+    private final ArrayList<Integer> allIndices;
 
     public CubeData(){
         allVertices = new ArrayList<>();
-        allTextures = new ArrayList<>();
-        allNormals = new ArrayList<>();
+        allIndices = new ArrayList<>();
     }
 
-    public void addVertex(Point3D vertex){
+    public void addVertex(Vertex vertex){
         this.allVertices.add(vertex);
     }
 
-    public void addTexture(Point2D texture){
-        this.allTextures.add(texture);
+    public void addIndices(int[] indices) {
+        for(int index : indices){
+            allIndices.add(index);
+        }
     }
 
-    public void addNormal(Point3D normal){
-        this.allNormals.add(normal);
-    }
-
-    public ArrayList<Point3D> getAllVertices() {
+    public ArrayList<Vertex> getAllVertices() {
         return allVertices;
     }
 
-    public ArrayList<Point2D> getAllTextures() {
-        return allTextures;
-    }
-
-    public ArrayList<Point3D> getAllNormals() {
-        return allNormals;
+    public ArrayList<Integer> getAllIndices() {
+        return allIndices;
     }
 }
